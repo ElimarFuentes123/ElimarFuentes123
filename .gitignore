@@ -1,0 +1,9 @@
+node_modules/
+out/
+renders/
+*.mp4
+*.mov
+*.webm
+*.m4a
+*.wav
+.env

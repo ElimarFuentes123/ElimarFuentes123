@@ -1,0 +1,32 @@
+{
+  "name": "elimarfuentes123",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "remotion": "remotion studio remotion/src/index.ts",
+    "remotion:render": "remotion render remotion/src/index.ts",
+    "yt": "yt-dlp --config-locations yt-dlp.conf"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElimarFuentes123/ElimarFuentes123.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElimarFuentes123/ElimarFuentes123/issues"
+  },
+  "homepage": "https://github.com/ElimarFuentes123/ElimarFuentes123#readme",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.547",
+    "@remotion/cli": "^4.0.547",
+    "@remotion/renderer": "^4.0.547",
+    "hyperframes": "^0.9.96",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.547"
+  }
+}
