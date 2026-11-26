@@ -139,8 +139,6 @@ TEXTS = [
     text("LAMBORGHINI", "BodoniModa-Black.ttf", 118, 3.27, 5.22, y="(h/2-text_h-20)"),
     text("AVENTADOR", "BodoniModa-Black.ttf", 140, 4.28, 5.22, y="(h/2+20)"),
     text("SVJ", "Anton.ttf", 520, 5.22, 6.33, fade_out=True),
-    text("Some legends don’t need an introduction.", INTER.replace("Black", "SemiBold"), 50,
-         9.73, 12.96, y="h*0.74", pop=False, fade_out=True),
     text("V12", "Anton.ttf", 560, 15.04, 15.55, color="white"),
     text("350 KM/H", "Anton.ttf", 210, 22.25, 22.80),
 ]
