@@ -16,6 +16,10 @@ if TTS["engine"] == "kokoro":
     from kokoro_onnx import Kokoro
     kk = Kokoro(f"{VOICES}/kokoro-v1.0.onnx", f"{VOICES}/voices-v1.0.bin")
     SR = 24000
+elif TTS["engine"] == "elevenlabs":
+    # ElevenLabs via HTTPS; the API key is injected by the environment's network proxy (never stored here)
+    import subprocess, tempfile, hashlib, os
+    SR = 24000
 else:
     SR = 22050
     voice = PiperVoice.load(f"{VOICES}/{TTS['voice']}.onnx")
@@ -27,7 +31,29 @@ try:
 except Exception:
     wm = None
 
-def synth(text):
+def synth(text, prev_text="", next_text=""):
+    if TTS["engine"] == "elevenlabs":
+        body = {"text": text, "model_id": TTS.get("model", "eleven_multilingual_v2"), "previous_text": prev_text, "next_text": next_text,
+                "voice_settings": {"stability": TTS.get("stability", 0.32), "similarity_boost": 0.75, "style": TTS.get("style", 0.45),
+                                   "use_speaker_boost": True, "speed": TTS.get("speed", 1.0)}}
+        key = hashlib.sha1(json.dumps([TTS, body], sort_keys=True).encode()).hexdigest()[:16]
+        os.makedirs("build/el_cache", exist_ok=True)
+        mp3 = f"build/el_cache/{key}.mp3"
+        if not os.path.exists(mp3):
+            with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+                json.dump(body, f)
+            r = subprocess.run(["curl", "-sS", "-o", mp3, "-w", "%{http_code}", "-X", "POST",
+                                f"https://api.elevenlabs.io/v1/text-to-speech/{TTS['voice_id']}?output_format=mp3_44100_128",
+                                "-H", "xi-api-key: proxy-injected", "-H", "Content-Type: application/json", "--data", f"@{f.name}"],
+                               capture_output=True, text=True)
+            if r.stdout.strip() != "200":
+                err = open(mp3, "rb").read()[:300]; os.remove(mp3)
+                raise SystemExit(f"ElevenLabs error {r.stdout}: {err}")
+        wav = mp3[:-4] + ".wav"
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", mp3, "-ac", "1", "-ar", str(SR), "-f", "s16le", wav], check=True)
+        a = np.fromfile(wav, np.int16).astype(np.float32)
+        nz = np.where(np.abs(a) > 300)[0]
+        return a[max(0, nz[0] - 200): nz[-1] + 400]
     if TTS["engine"] == "kokoro":
         a, sr = kk.create(text, voice=TTS["voice"], speed=TTS.get("speed", 0.92), lang="en-us")
         semi = TTS.get("pitch", 0)
@@ -64,7 +90,9 @@ gap = S.get("gap", 0.15)
 for i, ln in enumerate(S["lines"]):
     raw = ln["text"]
     spoken = raw.replace("*", "")
-    a = synth(spoken)
+    prev_t = S["lines"][i - 1]["text"].replace("*", "") if i else ""
+    next_t = S["lines"][i + 1]["text"].replace("*", "") if i + 1 < len(S["lines"]) else ""
+    a = synth(spoken, prev_t, next_t) if TTS["engine"] == "elevenlabs" else synth(spoken)
     dur = len(a) / SR
     toks = raw.split()
     starts = whisper_starts(a, len(toks))

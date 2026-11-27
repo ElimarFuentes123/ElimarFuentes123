@@ -1,7 +1,7 @@
 {
  "title": "In this town, every lie makes it rain over your head",
  "speed": 0.9,
- "gap": 0.14,
+ "gap": 0.22,
  "musicSwitchLine": 8,
  "lines": [
   {
@@ -90,7 +90,7 @@
     "dad_walk",
     "dad_umbrella"
    ],
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "Mom's been in the *hospital* since spring.",
@@ -111,14 +111,14 @@
    "shots": [
     "clear_sky"
    ],
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "But last night, I couldn't sleep.",
    "shots": [
     "awake"
    ],
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "I looked out the window, and Dad was standing in the backyard.",
@@ -127,7 +127,7 @@
     "window_pov"
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "Holding that *umbrella*.",
@@ -135,7 +135,7 @@
     "umbrella_close"
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "Above him was the biggest *storm* I'd ever seen.",
@@ -150,7 +150,7 @@
     ]
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "He'd been going out there every night, so I would never see the rain.",
@@ -159,7 +159,7 @@
     "dad_face"
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "Every, she's going to be fine, was a *lie*.",
@@ -173,7 +173,7 @@
     ]
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "I ran outside and stood right next to him.",
@@ -190,7 +190,7 @@
     "kid_say"
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "And for the first time, a tiny cloud appeared over *my* head.",
@@ -209,7 +209,7 @@
     ]
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "Dad smiled, and held the umbrella over *both* of us.",
@@ -218,7 +218,7 @@
     "final_wide"
    ],
    "rain": true,
-   "pause": 0.38
+   "pause": 0.5
   },
   {
    "text": "In this town, some lies are worth getting *wet* for.",
@@ -229,9 +229,12 @@
   }
  ],
  "tts": {
-  "engine": "kokoro",
-  "voice": "am_fenrir",
-  "speed": 0.84,
-  "pitch": 5
+  "engine": "elevenlabs",
+  "voice": "Liam",
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "model": "eleven_multilingual_v2",
+  "speed": 0.85,
+  "stability": 0.32,
+  "style": 0.45
  }
 }
