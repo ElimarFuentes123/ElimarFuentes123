@@ -238,7 +238,7 @@ const S = {
     kid.place(2.75, -0.72, -4.3, 0.15); kid.expr = 'happy'; kid.pose({ sit: true, t, headX: -0.35, armL: [-1.6 * ease(k * 2), 0, -0.2] });
     const p = keyAtHand(1);
     sparkles.userData.set(p, clamp01((k - 0.6) * 2.5), 0.4);
-    cam([p.x + 1.3, p.y + 0.5, p.z + 0.9], [p.x + 1.0, p.y + 0.4, p.z + 0.7], p.toArray(), p.toArray(), ease(k), 44);
+    cam([p.x - 0.6, p.y + 1.6, p.z + 2.2], [p.x - 0.5, p.y + 1.3, p.z + 1.8], [p.x - 0.2, p.y - 0.1, p.z - 0.3], [p.x - 0.2, p.y - 0.1, p.z - 0.3], ease(k), 46);
   },
   house_morning(t, d, k) {
     show('town', 'golden');
