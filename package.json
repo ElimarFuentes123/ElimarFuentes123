@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "remotion": "remotion studio remotion/src/index.ts",
     "remotion:render": "remotion render remotion/src/index.ts",
-    "yt": "yt-dlp --config-locations yt-dlp.conf"
+    "yt": "yt-dlp --config-locations yt-dlp.conf",
+    "yt:tiktok": "yt-dlp --config-locations yt-dlp.conf -f \"b[acodec!=none][vcodec!=none]/b\""
   },
   "repository": {
     "type": "git",
