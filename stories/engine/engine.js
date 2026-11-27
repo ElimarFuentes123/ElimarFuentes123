@@ -173,6 +173,10 @@ export function makeChar(o) {
     const hm = gm(o.shirt);
     box(1.0, 0.24, 1.0, hm, 0, hy + 0.45, -0.04, headP); box(1.0, 0.8, 0.2, hm, 0, hy + 0.05, -0.46, headP);
     box(0.14, 0.8, 0.9, hm, -0.49, hy + 0.05, -0.02, headP); box(0.14, 0.8, 0.9, hm, 0.49, hy + 0.05, -0.02, headP);
+  } else if (ht === 'chef') {
+    const wm = gm('#ffffff');
+    cyl(0.44, 0.44, 0.5, wm, 0, hy + 0.55, 0, headP, 32);
+    sphere(0.32, wm, -0.2, hy + 0.95, 0, headP, 12); sphere(0.34, wm, 0.15, hy + 1.0, 0.1, headP, 12); sphere(0.3, wm, 0.05, hy + 0.98, -0.2, headP, 12);
   } else if (ht === 'beanie') {
     const bm = gm(o.cap || '#3b6fd6');
     box(0.94, 0.34, 0.94, bm, 0, hy + 0.42, -0.02, headP); box(0.96, 0.12, 0.96, gm('#f4f4f4'), 0, hy + 0.27, -0.02, headP);
@@ -273,8 +277,8 @@ export function show(setName, light = 'day') {
     scene.fog = new THREE.Fog(L.fog, L.fogN, L.fogF); scene.background = null;
   } else {
     const night = light === 'night' || light === 'storm';
-    hemi.color.set(night ? '#8ea0d8' : '#fff1e0'); hemi.groundColor.set('#6a5a48'); hemi.intensity = night ? 0.55 : 1.15;
-    renderer.toneMappingExposure = night ? 1.2 : 1.1;
+    hemi.color.set(night ? '#8ea0d8' : '#fff1e0'); hemi.groundColor.set('#6a5a48'); hemi.intensity = night ? 0.95 : 1.15;
+    renderer.toneMappingExposure = night ? 1.35 : 1.1;
     scene.fog = null; scene.background = C(night ? '#0c1020' : '#2a2420');
     const g = sets[setName];
     g.userData.setNight?.(night);
@@ -398,7 +402,7 @@ export const sparkles = (() => {
 
 // ---------------- sets ----------------
 // Town street: road along Z, houses both sides, front facing the road.
-export function buildTown(name = 'town', { seed = 42, houseColors } = {}) {
+export function buildTown(name = 'town', { seed = 42, houseColors, sideRoad = null } = {}) {
   const town = new THREE.Group();
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(800, 800), mat('#6cbf4f')); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; town.add(ground);
   box(8, 0.05, 800, mat('#4a5266'), 0, 0.025, 0, town, false);
@@ -419,12 +423,16 @@ export function buildTown(name = 'town', { seed = 42, houseColors } = {}) {
     for (const wz of [-2, 2]) { box(0.2, 1.9, 1.7, white, 4.02, 4.3, wz, g); box(0.24, 1.5, 1.3, glassMat, 4.04, 4.3, wz, g, false); box(0.26, 0.1, 1.3, white, 4.06, 4.3, wz, g, false); }
     box(0.2, 1.9, 1.7, white, 4.02, 1.8, -2, g); box(0.24, 1.5, 1.3, glassMat, 4.04, 1.8, -2, g, false);
     box(0.2, 2.8, 1.5, white, 4.02, 1.4, 2, g); box(0.24, 2.5, 1.2, mat(roofs[Math.floor(r() * roofs.length)]), 4.05, 1.3, 2, g);
-    if (r() < 0.5) roundTree(town, s * (10 + r()), i * 13 + 6.5, 0.9 + r() * 0.4, ['#4caf50', '#66bb6a', '#43a047'][Math.floor(r() * 3)]);
-    else pine(town, s * (10 + r()), i * 13 + 6.5, 0.9 + r() * 0.4);
+    const skipTree = sideRoad !== null && s > 0 && Math.abs(i * 13 + 6.5 - sideRoad) < 4;
+    const tr = r(), ts = 0.9 + r() * 0.4, tx = s * (10 + r());
+    if (skipTree) continue;
+    if (tr < 0.5) roundTree(town, tx, i * 13 + 6.5, ts, ['#4caf50', '#66bb6a', '#43a047'][Math.floor(r() * 3)]);
+    else pine(town, tx, i * 13 + 6.5, ts);
   }
   for (const s of [-1, 1]) for (let z = -260; z <= 260; z += 26) lamp(town, s * 6.8, z + 3);
   const pk = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 0.9, 0.18), white, 1200); let n = 0; const m4 = new THREE.Matrix4();
-  for (const s of [-1, 1]) for (let z = -80; z < 80; z += 0.55) { m4.makeTranslation(s * 8.6, 0.45, z); pk.setMatrixAt(n++, m4); }
+  for (const s of [-1, 1]) for (let z = -80; z < 80; z += 0.55) { if (sideRoad !== null && s > 0 && Math.abs(z - sideRoad) < 3) continue; m4.makeTranslation(s * 8.6, 0.45, z); pk.setMatrixAt(n++, m4); }
+  if (sideRoad !== null) { box(400, 0.05, 5, mat('#4a5266'), 204, 0.03, sideRoad, town, false); for (let x = 8; x < 400; x += 7) box(3, 0.06, 0.22, dash, x, 0.04, sideRoad, town, false); }
   pk.count = n; pk.castShadow = true; town.add(pk);
   return addSet(name, town);
 }
@@ -491,7 +499,7 @@ export function buildRoom(name, v) {
     pane.color.set(night ? paneNight.c : paneDay.c); pane.emissive.set(night ? paneNight.e : paneDay.e); pane.emissiveIntensity = night ? paneNight.i : paneDay.i;
     starsP.forEach((s) => (s.visible = night));
     spot.color.set(night ? '#7f97ff' : '#fff1dc'); spot.intensity = night ? 0.8 : 2.4;
-    fill.intensity = night ? 0.25 : 1.2; nightLamp.intensity = night ? 1.6 : 0;
+    fill.intensity = night ? 0.55 : 1.2; nightLamp.intensity = night ? 2.2 : 0;
   };
   const frameM = mat('#6b4128');
   const art = (x, y, w, h, c) => { box(w, h, 0.1, frameM, x, y, -6.82, g); box(w - 0.25, h - 0.25, 0.12, mat(c, { emissive: c, emissiveIntensity: 0.1 }), x, y, -6.8, g, false); };

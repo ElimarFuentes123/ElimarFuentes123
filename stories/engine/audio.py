@@ -89,6 +89,27 @@ def sfx(kind, t0):
         x = lowpass(noise(2.2), 0.08); tt = np.arange(len(x)) / SR
         env = np.minimum(1, tt / 0.4) * np.minimum(1, (2.2 - tt) / 0.6) * (1 + 0.4 * np.sin(tt * 13))
         add((x * env / (np.abs(x).max() + 1e-9)).astype(np.float32), t0, 0.25)
+    elif kind == "click":
+        tt = np.arange(int(0.06 * SR)) / SR
+        add((noise(0.06) * np.exp(-tt * 90) + np.sin(2 * np.pi * 2400 * tt) * np.exp(-tt * 120) * 0.5).astype(np.float32), t0, 0.35)
+    elif kind == "clicks":  # a run of lock clicks / deadbolts
+        for j in range(7): sfx("click", t0 + j * 0.13)
+    elif kind == "creak":
+        ln = 1.1; tt = np.arange(int(ln * SR)) / SR; f = 180 + 60 * np.sin(tt * 3.1) + 25 * np.sin(tt * 17)
+        sig = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * (0.6 + 0.4 * np.sin(tt * 40)) * np.minimum(1, tt / 0.1) * np.minimum(1, (ln - tt) / 0.3)
+        add(lowpass(sig.astype(np.float32), 0.15), t0, 0.12)
+    elif kind == "laugh":
+        for j in range(6):
+            tt = np.arange(int(0.16 * SR)) / SR; f = 420 + 80 * (j % 3) - tt * 300
+            add((np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * tt / 0.16) ** 2).astype(np.float32), t0 + j * 0.19, 0.12, (-0.3, 0.3)[j % 2])
+    elif kind == "rustle":
+        x = noise(0.8); tt = np.arange(len(x)) / SR
+        add((x - lowpass(x, 0.2)) * (0.5 + 0.5 * np.abs(np.sin(tt * 23))) * np.sin(np.pi * tt / 0.8) * 0.4, t0, 0.35)
+    elif kind == "heartbeat":
+        for j in range(3):
+            for off, g in ((0, 1.0), (0.22, 0.7)):
+                tt = np.arange(int(0.18 * SR)) / SR
+                add((np.sin(2 * np.pi * 55 * tt) * np.exp(-tt * 22)).astype(np.float32), t0 + j * 0.9 + off, 0.9 * g)
     elif kind == "whoosh":
         ln = 0.35; x = noise(ln); tt = np.arange(len(x)) / SR
         y = np.empty_like(x); acc = 0.0
