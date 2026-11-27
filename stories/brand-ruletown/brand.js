@@ -53,13 +53,13 @@ window.renderBanner = () => {
   dad.place(2.0, y - 0.18, z + 0.8, -0.15).pose({ armR: [-0.95, 0, 0.1] }); dad.expr = 'smile';
   const hp = E.handPos(dad, 1); umb.position.set(hp.x, hp.y - 0.1, hp.z); umb.visible = true;
   dale.place(4.4, y, z - 0.2, -0.3).pose({ armR: [-1.6, 0, -0.5] }); dale.expr = 'grin'; over(daleCloud, dale, 1.3);
-  cam([0.2, 2.2, 13.5], [0.2, 2.2, 13.5], [0.2, 2.4, 0], [0.2, 2.4, 0], 0, 34);
+  cam([0.2, 1.6, 12.5], [0.2, 1.6, 12.5], [0.2, 4.9, 0], [0.2, 4.9, 0], 0, 38);
   const { out, ctx } = render(2560, 1440);
   // safe area for all devices: 1546x423 centred. Title + tagline live inside it.
   const g = ctx.createLinearGradient(0, 420, 0, 1020); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(0.5, 'rgba(0,0,0,0.28)'); g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = g; ctx.fillRect(0, 420, 2560, 600);
-  title(ctx, 'RULE TOWN', 1280, 650, 190);
-  title(ctx, 'One town. One strange rule. One twist.', 1280, 800, 62, '#ffffff');
+  title(ctx, 'RULE TOWN', 1280, 600, 180);
+  title(ctx, 'One town. One strange rule. One twist.', 1280, 735, 58, '#ffffff');
   return out.toDataURL('image/png');
 };
 window.ready = true;
