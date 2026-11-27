@@ -7,3 +7,4 @@ renders/
 *.m4a
 *.wav
 .env
+downloads/
