@@ -227,5 +227,11 @@
    ],
    "rain": true
   }
- ]
+ ],
+ "tts": {
+  "engine": "kokoro",
+  "voice": "am_fenrir",
+  "speed": 0.84,
+  "pitch": 5
+ }
 }

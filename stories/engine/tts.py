@@ -8,11 +8,18 @@ from piper import PiperVoice
 from piper.config import SynthesisConfig
 
 VOICES = sys.argv[1]
-VOICE = sys.argv[2] if len(sys.argv) > 2 else "en_US-lessac-high"
 S = json.load(open("script.json"))
-SR = 22050
-voice = PiperVoice.load(f"{VOICES}/{VOICE}.onnx")
-cfg = SynthesisConfig(length_scale=S.get("speed", 0.9), noise_scale=0.6, noise_w_scale=0.7)
+TTS = S.get("tts", {"engine": "piper", "voice": sys.argv[2] if len(sys.argv) > 2 else "en_US-lessac-high"})
+if TTS["engine"] == "kokoro":
+    # Kokoro voice tuned to the viral-reference narrator style (expressive, ~170 wpm, bright pitch)
+    import subprocess, tempfile, soundfile as sf
+    from kokoro_onnx import Kokoro
+    kk = Kokoro(f"{VOICES}/kokoro-v1.0.onnx", f"{VOICES}/voices-v1.0.bin")
+    SR = 24000
+else:
+    SR = 22050
+    voice = PiperVoice.load(f"{VOICES}/{TTS['voice']}.onnx")
+    cfg = SynthesisConfig(length_scale=S.get("speed", 0.9), noise_scale=0.6, noise_w_scale=0.7)
 
 try:
     from faster_whisper import WhisperModel
@@ -21,6 +28,17 @@ except Exception:
     wm = None
 
 def synth(text):
+    if TTS["engine"] == "kokoro":
+        a, sr = kk.create(text, voice=TTS["voice"], speed=TTS.get("speed", 0.92), lang="en-us")
+        semi = TTS.get("pitch", 0)
+        if semi:
+            with tempfile.TemporaryDirectory() as d:
+                sf.write(f"{d}/i.wav", a, sr)
+                subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", f"{d}/i.wav", "-af", f"rubberband=pitch={2 ** (semi / 12):.4f}:formant=preserved", f"{d}/o.wav"], check=True)
+                a, sr = sf.read(f"{d}/o.wav", dtype="float32")
+        a = a.astype(np.float32) * 32767 * 0.9 / (np.abs(a).max() + 1e-9)
+        nz = np.where(np.abs(a) > 300)[0]
+        return a[max(0, nz[0] - 200): nz[-1] + 400]
     buf = io.BytesIO()
     with wave.open(buf, "wb") as w:
         voice.synthesize_wav(text, w, syn_config=cfg)

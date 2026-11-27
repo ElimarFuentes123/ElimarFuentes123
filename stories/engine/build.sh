@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Build an "In This Town" episode end to end.
-#   stories/engine/build.sh <episode-folder-name> <piper-voices-dir> [voice]
+#   stories/engine/build.sh <episode-folder-name> <piper-voices-dir> [voice]  (or set "tts" in script.json: {"engine":"kokoro","voice":"am_fenrir","speed":0.84,"pitch":5})
 # Steps: narration (Piper + Whisper word timing) -> music/SFX -> 3D frames -> final MP4 in renders/
 set -euo pipefail
 EP="$1"; VOICES="$2"; VOICE="${3:-en_US-lessac-high}"
