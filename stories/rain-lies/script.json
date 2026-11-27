@@ -1,0 +1,231 @@
+{
+ "title": "In this town, every lie makes it rain over your head",
+ "speed": 0.9,
+ "gap": 0.14,
+ "musicSwitchLine": 8,
+ "lines": [
+  {
+   "text": "In this town, every time you tell a *lie*, it starts *raining* over your head.",
+   "shots": [
+    "hook_street",
+    "hook_cloud"
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.55
+    ]
+   ],
+   "rain": true
+  },
+  {
+   "text": "Just a tiny cloud. Right above you.",
+   "shots": [
+    "cloud_close"
+   ],
+   "rain": true
+  },
+  {
+   "text": "When the mayor promised free pizza for everyone, it rained on him for a *week*.",
+   "shots": [
+    "mayor_wide",
+    "mayor_close"
+   ],
+   "sfx": [
+    [
+     "crowd",
+     0.0
+    ],
+    [
+     "thunder_small",
+     0.62
+    ]
+   ],
+   "rain": true
+  },
+  {
+   "text": "Mister Dale sells used cars. He hasn't been dry in *nine* years.",
+   "shots": [
+    "dale_wide",
+    "dale_close"
+   ],
+   "rain": true
+  },
+  {
+   "text": "At school, nobody ever says, I did my homework.",
+   "shots": [
+    "class_wide",
+    "class_kid"
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.92
+    ]
+   ]
+  },
+  {
+   "text": "Everyone just looks *up*.",
+   "shots": [
+    "class_lookup"
+   ],
+   "rain": true
+  },
+  {
+   "text": "And me? I've *never* had a single cloud.",
+   "shots": [
+    "me_walk",
+    "me_close"
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.5
+    ]
+   ]
+  },
+  {
+   "text": "Neither has my dad. But he still carries an *umbrella* everywhere.",
+   "shots": [
+    "dad_walk",
+    "dad_umbrella"
+   ],
+   "pause": 0.38
+  },
+  {
+   "text": "Mom's been in the *hospital* since spring.",
+   "shots": [
+    "hospital_wide",
+    "hospital_close"
+   ]
+  },
+  {
+   "text": "Every night, Dad tucks me in and says, Mom is going to be *fine*.",
+   "shots": [
+    "tuck_wide",
+    "tuck_dad"
+   ]
+  },
+  {
+   "text": "And every night, the sky stays *clear*.",
+   "shots": [
+    "clear_sky"
+   ],
+   "pause": 0.38
+  },
+  {
+   "text": "But last night, I couldn't sleep.",
+   "shots": [
+    "awake"
+   ],
+   "pause": 0.38
+  },
+  {
+   "text": "I looked out the window, and Dad was standing in the backyard.",
+   "shots": [
+    "window_kid",
+    "window_pov"
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "Holding that *umbrella*.",
+   "shots": [
+    "umbrella_close"
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "Above him was the biggest *storm* I'd ever seen.",
+   "shots": [
+    "storm_reveal",
+    "storm_wide"
+   ],
+   "sfx": [
+    [
+     "thunder",
+     0.3
+    ]
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "He'd been going out there every night, so I would never see the rain.",
+   "shots": [
+    "dad_alone",
+    "dad_face"
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "Every, she's going to be fine, was a *lie*.",
+   "shots": [
+    "lie_flash"
+   ],
+   "sfx": [
+    [
+     "thunder",
+     0.55
+    ]
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "I ran outside and stood right next to him.",
+   "shots": [
+    "run_out",
+    "stand_next"
+   ],
+   "rain": true
+  },
+  {
+   "text": "I took his hand and said, Dad, *we're* going to be fine.",
+   "shots": [
+    "hand_hold",
+    "kid_say"
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "And for the first time, a tiny cloud appeared over *my* head.",
+   "shots": [
+    "kid_cloud",
+    "kid_cloud_close"
+   ],
+   "sfx": [
+    [
+     "pop",
+     0.3
+    ],
+    [
+     "sparkle",
+     0.3
+    ]
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "Dad smiled, and held the umbrella over *both* of us.",
+   "shots": [
+    "final_close",
+    "final_wide"
+   ],
+   "rain": true,
+   "pause": 0.38
+  },
+  {
+   "text": "In this town, some lies are worth getting *wet* for.",
+   "shots": [
+    "end_wide"
+   ],
+   "rain": true
+  }
+ ]
+}
