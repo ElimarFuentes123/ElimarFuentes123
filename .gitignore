@@ -8,3 +8,4 @@ renders/
 *.wav
 .env
 stories/*/build/
+*.info.json
