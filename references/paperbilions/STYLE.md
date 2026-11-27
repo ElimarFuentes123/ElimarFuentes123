@@ -12,7 +12,8 @@ Format: **16:9 long-form, 14–17 min**, 30 fps (TikTok only serves 640x360; ren
 The channel says in a caption that it is made with the **Overnight** app (madeovernight.com), which researches, writes, voices and animates each video. It is an automated faceless channel.
 
 ## Narration
-- One calm male documentary narrator, **~150–155 wpm**, ~2,100–2,300 words per video.
+- One calm male documentary narrator, **~150–155 wpm** for the explainers (~2,100–2,300 words). The spy story runs at **~190 wpm** (3,150 words) and has more dialogue and faster cuts.
+- Two hook types: **number + paradox** for explainers; **scene-first** for stories ("In Singapore, the boss of the most valuable company on Earth is having dinner with a Chinese spy… Jensen has no idea.").
 - Short, punchy sentences. Lots of fragments: "A lot of it." "Nobody had." "You know how that one ends."
 - Plain-English explainers for jargon, with one metaphor each: compute = "rent for a brain"; IOU; a bubble and a pin.
 - Every big number is converted into something you can feel: "$80B = about $18 million an hour. Nights included." "$35 of every $100 in your index fund."
