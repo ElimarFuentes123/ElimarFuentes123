@@ -4,8 +4,6 @@ Usage (from the episode folder): python3 ../engine/tts.py <voices_dir> [voice_na
 """
 import io, json, sys, wave, re
 import numpy as np
-from piper import PiperVoice
-from piper.config import SynthesisConfig
 
 VOICES = sys.argv[1]
 S = json.load(open("script.json"))
@@ -22,6 +20,8 @@ elif TTS["engine"] == "elevenlabs":
     SR = 24000
 else:
     SR = 22050
+    from piper import PiperVoice
+    from piper.config import SynthesisConfig
     voice = PiperVoice.load(f"{VOICES}/{TTS['voice']}.onnx")
     cfg = SynthesisConfig(length_scale=S.get("speed", 0.9), noise_scale=0.6, noise_w_scale=0.7)
 

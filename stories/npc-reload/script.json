@@ -1,0 +1,29 @@
+{
+ "title": "In this world, every time the player reloads, everything resets",
+ "series": "NPC Nico (In This World) - episode 1",
+ "tts": {"engine": "elevenlabs", "voice": "Liam (temporary; swap to Valf unWb9iRIK7Xxf4A5Hfis when the plan allows)", "voice_id": "TX3LPaxmHKxFdv7VOQHJ", "model": "eleven_multilingual_v2", "speed": 1.06, "stability": 0.32, "style": 0.5},
+ "gap": 0.14,
+ "musicSwitchLine": 10,
+ "lines": [
+  { "text": "In this world, every time the player loads a save, everything *resets*.", "shots": ["load_screen", "city_reset"], "sfx": [["whoosh", 0.55], ["sparkle", 0.75]] },
+  { "text": "Crashed cars fix themselves. Broken windows grow back.", "shots": ["car_fix", "window_fix"], "sfx": [["sparkle", 0.3], ["sparkle", 0.8]] },
+  { "text": "Even the guy who got hit by a bus gets up and buys a *hot dog*.", "shots": ["bus_guy_up", "hotdog"], "sfx": [["pop", 0.7]] },
+  { "text": "And nobody remembers *anything*.", "shots": ["npcs_blank"] },
+  { "text": "Except *me*.", "shots": ["nico_reveal"], "pause": 0.3 },
+  { "text": "I'm Nico. I'm an NPC. My only job is to walk from the bus stop to the corner. *Forever*.", "shots": ["nico_intro", "nico_walk", "nico_walk_back"] },
+  { "text": "But I remember *everything*.", "shots": ["nico_close"], "pause": 0.3 },
+  { "text": "My dad's car has been stolen *4,000* times.", "shots": ["dad_car_stolen", "dad_shock"], "sfx": [["whoosh", 0.4]] },
+  { "text": "The player has crashed into my bus stop *300* times.", "shots": ["busstop_crash"], "sfx": [["thunder", 0.55]] },
+  { "text": "So I started leaving notes for myself, behind the dumpster. Day 1. Day 2. Day *900*.", "shots": ["alley_notes", "notes_close"], "sfx": [["rustle", 0.2]] },
+  { "text": "Then one night, at 2:13 AM, something was different.", "shots": ["night_street"], "pause": 0.35 },
+  { "text": "The player didn't steal a car. He didn't run. He just stood there, staring at *me*.", "shots": ["player_stand", "nico_nervous"], "sfx": [["heartbeat", 0.6]] },
+  { "text": "Then a truck lost control.", "shots": ["truck_coming"], "sfx": [["whoosh", 0.5]] },
+  { "text": "*Game over*. For both of us.", "shots": ["game_over"], "sfx": [["thunder", 0.0]], "pause": 0.3 },
+  { "text": "Reload.", "shots": ["load_screen2"], "pause": 0.25 },
+  { "text": "He came back earlier. The truck hit us again. Reload. Again. *47* times.", "shots": ["player_run", "game_over2", "reload_montage"], "weights": [1, 1, 1.4], "sfx": [["thunder", 0.3], ["clicks", 0.7]] },
+  { "text": "On try 48, he grabbed my arm and pulled me out of the way.", "shots": ["grab_save", "truck_miss"], "sfx": [["whoosh", 0.65], ["cheer", 0.85]] },
+  { "text": "Then I saw it. Behind the dumpster, next to my notes, in *his* handwriting.", "shots": ["walk_alley", "wall_reveal"], "pause": 0.3 },
+  { "text": "Day 1. Day 2. Day 900. *Save Nico*.", "shots": ["player_notes"], "sfx": [["sparkle", 0.85]], "pause": 0.45 },
+  { "text": "In this world, nobody remembers when the player reloads. Except me. And now, *him*.", "shots": ["end_two", "end_pull"] }
+ ]
+}
