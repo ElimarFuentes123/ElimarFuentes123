@@ -132,6 +132,19 @@ def sfx(kind, t0):
         env = np.minimum(1, tt / 0.15) * np.exp(-tt * 0.7) * (1 + 0.3 * np.sin(tt * 19))
         add((x * env / (np.abs(x).max() + 1e-9)).astype(np.float32), t0, 0.35)
         for j in range(5): sfx("pop", t0 + 0.2 + j * 0.31)
+    elif kind == "bounce":
+        for j, g in enumerate((1.0, 0.8, 0.6)):
+            tt = np.arange(int(0.12 * SR)) / SR
+            add((np.sin(2 * np.pi * (140 - tt * 300) * tt) * np.exp(-tt * 40) + lowpass(noise(0.12), 0.1) * np.exp(-tt * 60)).astype(np.float32), t0 + j * 0.42, 0.7 * g)
+    elif kind == "swish":
+        x = noise(0.45); tt = np.arange(len(x)) / SR
+        add(((x - lowpass(x, 0.3)) * np.sin(np.pi * tt / 0.45) ** 2).astype(np.float32), t0, 0.35)
+    elif kind == "buzzer":
+        tt = np.arange(int(1.1 * SR)) / SR
+        add((np.sign(np.sin(2 * np.pi * 220 * tt)) * 0.5 + np.sign(np.sin(2 * np.pi * 223 * tt)) * 0.5).astype(np.float32) * np.minimum(1, (1.1 - tt) / 0.05), t0, 0.12)
+    elif kind == "whistle":
+        tt = np.arange(int(0.6 * SR)) / SR; f = 2900 + 120 * np.sign(np.sin(2 * np.pi * 28 * tt))
+        add((np.sin(2 * np.pi * np.cumsum(f) / SR) * np.minimum(1, tt / 0.02) * np.minimum(1, (0.6 - tt) / 0.05)).astype(np.float32), t0, 0.14)
     elif kind == "whoosh":
         ln = 0.35; x = noise(ln); tt = np.arange(len(x)) / SR
         y = np.empty_like(x); acc = 0.0

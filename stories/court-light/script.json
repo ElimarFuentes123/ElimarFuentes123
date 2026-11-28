@@ -1,0 +1,208 @@
+{
+ "title": "In this town, every basketball court turns its lights off at 9 PM",
+ "tts": {
+  "engine": "kokoro",
+  "voice": "am_fenrir",
+  "speed": 0.9,
+  "pitch": 5
+ },
+ "gap": 0.16,
+ "musicSwitchLine": 15,
+ "lines": [
+  {
+   "text": "In this town, every basketball court turns its lights off at nine P.M. *Sharp*.",
+   "shots": [
+    "courtA_wide",
+    "light_click"
+   ],
+   "sfx": [
+    [
+     "click",
+     0.78
+    ]
+   ]
+  },
+  {
+   "text": "Coach Dan says, if you're not good by nine, you'll never be *good*.",
+   "shots": [
+    "coach_dan"
+   ],
+   "sfx": [
+    [
+     "whistle",
+     0.1
+    ]
+   ]
+  },
+  {
+   "text": "Except *one* court. The old court behind the park stays lit until *midnight*.",
+   "shots": [
+    "park_court",
+    "park_lights"
+   ]
+  },
+  {
+   "text": "And that's where I practice. Every. Single. Night.",
+   "shots": [
+    "kid_shoot1",
+    "kid_shoot2",
+    "kid_shoot3"
+   ],
+   "sfx": [
+    [
+     "bounce",
+     0.1
+    ],
+    [
+     "swish",
+     0.45
+    ],
+    [
+     "bounce",
+     0.7
+    ]
+   ]
+  },
+  {
+   "text": "Coach Dan cut me from the team. *Twice*.",
+   "shots": [
+    "coach_cut"
+   ]
+  },
+  {
+   "text": "But I noticed things.",
+   "shots": [
+    "kid_notice"
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "Mister Moe, the old janitor, always sweeps nearby. Even at midnight.",
+   "shots": [
+    "janitor_sweep"
+   ]
+  },
+  {
+   "text": "The light bill on the pole says, paid, R.M.",
+   "shots": [
+    "bill_close"
+   ],
+   "sfx": [
+    [
+     "rustle",
+     0.2
+    ]
+   ]
+  },
+  {
+   "text": "And there's a faded jersey in his window. Number *twenty-three*.",
+   "shots": [
+    "shed_window",
+    "jersey_close"
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "Then two players got hurt, right before the championship.",
+   "shots": [
+    "injured"
+   ]
+  },
+  {
+   "text": "The team needed one more player. *Me*.",
+   "shots": [
+    "kid_called"
+   ],
+   "sfx": [
+    [
+     "whistle",
+     0.1
+    ]
+   ]
+  },
+  {
+   "text": "The *whole* town came to watch.",
+   "shots": [
+    "gym_crowd"
+   ],
+   "sfx": [
+    [
+     "cheer",
+     0.1
+    ]
+   ]
+  },
+  {
+   "text": "Last ten seconds. Down by one. They gave me the ball.",
+   "shots": [
+    "scoreboard",
+    "kid_ball"
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.3
+    ]
+   ]
+  },
+  {
+   "text": "I looked at the stands, and Mister Moe was in the front row. Wearing number *twenty-three*.",
+   "shots": [
+    "stands_look",
+    "moe_frontrow"
+   ],
+   "pause": 0.3
+  },
+  {
+   "text": "I shot. *Swish*.",
+   "shots": [
+    "the_shot",
+    "swish"
+   ],
+   "sfx": [
+    [
+     "swish",
+     0.62
+    ],
+    [
+     "buzzer",
+     0.7
+    ],
+    [
+     "cheer",
+     0.75
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "After the game, Coach Dan told me the truth.",
+   "shots": [
+    "coach_tell"
+   ],
+   "pause": 0.3
+  },
+  {
+   "text": "Mister Moe was the best player this town ever had. He hurt his knee before his big game, and never got his chance.",
+   "shots": [
+    "moe_photo",
+    "moe_alone"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "So for three years, he paid for that light, so *I* would get mine.",
+   "shots": [
+    "moe_light",
+    "kid_moe"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "In this town, the lights go off at nine. Unless someone *believes* in you.",
+   "shots": [
+    "end_court"
+   ]
+  }
+ ]
+}
