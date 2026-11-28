@@ -1,0 +1,27 @@
+{
+ "title": "In this town, every house turns on its Christmas lights on December 1st",
+ "tts": {"engine": "elevenlabs", "voice": "Liam", "voice_id": "TX3LPaxmHKxFdv7VOQHJ", "model": "eleven_multilingual_v2", "speed": 0.93, "stability": 0.32, "style": 0.45},
+ "gap": 0.18,
+ "musicSwitchLine": 4,
+ "music": {"bells": true},
+ "lines": [
+  { "text": "In this town, every house turns on its Christmas lights on December *first*. Every single one.", "shots": ["street_light_up", "lights_close"], "sfx": [["sparkle", 0.35], ["sparkle", 0.8]] },
+  { "text": "The mayor lights a *giant* tree. The baker covers his whole roof in candy canes.", "shots": ["plaza_tree", "bakery_canes"], "sfx": [["cheer", 0.15]] },
+  { "text": "Except *one* house. Old Mister Santos's house stays *dark*.", "shots": ["dark_house_wide", "santos_window"] },
+  { "text": "Every year. The kids call him the *Grinch*.", "shots": ["kids_grinch"], "sfx": [["laugh", 0.4]] },
+  { "text": "But I noticed things.", "shots": ["kid_notices"], "pause": 0.4 },
+  { "text": "He keeps a box by his window that says, *hers*.", "shots": ["box_hers"], "pause": 0.4 },
+  { "text": "Every December, he buys *one* light bulb, and never uses it.", "shots": ["bulb_walk", "bulb_close"], "pause": 0.4 },
+  { "text": "And every night he waves at our house, but he never *smiles*.", "shots": ["santos_wave", "kid_waves_back"], "pause": 0.4 },
+  { "text": "So I asked my mom why.", "shots": ["mom_ask"] },
+  { "text": "She said his wife put up their lights for *forty* years.", "shots": ["old_photo"], "pause": 0.4 },
+  { "text": "She passed away on December *first*.", "shots": ["santos_alone"], "pause": 0.6 },
+  { "text": "That night, I knocked on *every* door on our street.", "shots": ["knock1", "knock2", "knock3"], "sfx": [["knock", 0.05], ["knock", 0.38], ["knock", 0.7]] },
+  { "text": "The baker came. The mayor came. Even the kids who called him the *Grinch*.", "shots": ["crowd_arrive", "crowd_wide"] },
+  { "text": "We worked *all* night.", "shots": ["ladders", "lights_progress"], "sfx": [["clicks", 0.3]] },
+  { "text": "When Mister Santos opened his door the next evening, his whole house was *glowing*.", "shots": ["door_open", "house_reveal"], "sfx": [["creak", 0.1], ["sparkle", 0.55], ["cheer", 0.6]], "pause": 0.4 },
+  { "text": "He didn't say a word. He went back inside, and came out with that *one* bulb.", "shots": ["santos_inside_out", "bulb_hand"], "pause": 0.4 },
+  { "text": "He screwed it in, right above his door. And for the first time, he *smiled*.", "shots": ["bulb_screw", "santos_smile"], "sfx": [["click", 0.25], ["sparkle", 0.3]], "pause": 0.4 },
+  { "text": "In this town, every house turns on its lights. Even the ones that *forgot* how.", "shots": ["end_pull"] }
+ ]
+}

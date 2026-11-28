@@ -386,6 +386,26 @@ export function rainCloud({ size = 1, dark = false, drops = 70, width = 0.9, fal
   return g;
 }
 
+// falling snow around the camera target
+export function snow(n = 1800) {
+  const geo = new THREE.BufferGeometry(); const arr = new Float32Array(n * 3); geo.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+  const p = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.09, map: dotTex, transparent: true, depthWrite: false, color: '#ffffff' }));
+  p.frustumCulled = false; scene.add(p);
+  const r = rng(55), seeds = Array.from({ length: n }, () => [r(), r(), r(), r()]);
+  p.userData.update = (time) => {
+    const c = camAt(); const cp = camera.position;
+    seeds.forEach(([a, b, d, e], i) => {
+      const y = ((b - time * (0.05 + e * 0.04)) % 1 + 1) % 1;
+      arr[i * 3] = (cp.x + c.x) / 2 + (a - 0.5) * 26 + Math.sin(time * 0.8 + e * 9) * 0.3;
+      arr[i * 3 + 1] = y * 16;
+      arr[i * 3 + 2] = (cp.z + c.z) / 2 + (d - 0.5) * 26;
+    });
+    geo.attributes.position.needsUpdate = true;
+  };
+  p.visible = false;
+  return p;
+}
+
 export const sparkles = (() => {
   const N = 70, geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
   const p = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.14, map: dotTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: '#ffe9a0' }));
@@ -402,9 +422,10 @@ export const sparkles = (() => {
 
 // ---------------- sets ----------------
 // Town street: road along Z, houses both sides, front facing the road.
-export function buildTown(name = 'town', { seed = 42, houseColors, sideRoad = null } = {}) {
-  const town = new THREE.Group();
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(800, 800), mat('#6cbf4f')); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; town.add(ground);
+export function buildTown(name = 'town', { seed = 42, houseColors, sideRoad = null, winter = false } = {}) {
+  const town = new THREE.Group(); town.userData.houses = [];
+  const snowM = mat('#f4f8fc', { roughness: 0.9 });
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(800, 800), winter ? snowM : mat('#6cbf4f')); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; town.add(ground);
   box(8, 0.05, 800, mat('#4a5266'), 0, 0.025, 0, town, false);
   const dash = mat('#f7f1d4'); for (let z = -260; z < 260; z += 7) box(0.22, 0.06, 3, dash, 0, 0.03, z, town, false);
   const walk = mat('#dcd8d0'); for (const s of [-1, 1]) { box(3, 0.18, 800, walk, s * 5.5, 0.09, 0, town, false); box(0.2, 0.22, 800, mat('#c4bdb2'), s * 4.05, 0.11, 0, town, false); }
@@ -419,7 +440,8 @@ export function buildTown(name = 'town', { seed = 42, houseColors, sideRoad = nu
     box(8, 6, 8, wm, 0, 3, 0, g);
     const t = new THREE.Mesh(triGeo, wm); t.position.set(0, 6, -4); t.castShadow = true; g.add(t);
     const rm = mat(roofs[Math.floor(r() * roofs.length)]);
-    for (const q of [-1, 1]) { const sl = box(5.4, 0.35, 9, rm, q * 2.15, 7.65, 0, g); sl.rotation.z = -q * 0.65; }
+    for (const q of [-1, 1]) { const sl = box(5.4, 0.35, 9, rm, q * 2.15, 7.65, 0, g); sl.rotation.z = -q * 0.65; if (winter) { const sn = box(5.0, 0.16, 9.1, snowM, q * 2.05, 7.92, 0, g); sn.rotation.z = -q * 0.65; } }
+    town.userData.houses.push({ s, i, g });
     for (const wz of [-2, 2]) { box(0.2, 1.9, 1.7, white, 4.02, 4.3, wz, g); box(0.24, 1.5, 1.3, glassMat, 4.04, 4.3, wz, g, false); box(0.26, 0.1, 1.3, white, 4.06, 4.3, wz, g, false); }
     box(0.2, 1.9, 1.7, white, 4.02, 1.8, -2, g); box(0.24, 1.5, 1.3, glassMat, 4.04, 1.8, -2, g, false);
     box(0.2, 2.8, 1.5, white, 4.02, 1.4, 2, g); box(0.24, 2.5, 1.2, mat(roofs[Math.floor(r() * roofs.length)]), 4.05, 1.3, 2, g);

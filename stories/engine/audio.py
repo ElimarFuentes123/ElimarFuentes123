@@ -61,6 +61,19 @@ while t < dur - 0.5:
         add(tone(m, 2.5, 1.3), t + i * beatB, 0.12 if t < lift else 0.15, (-0.2, 0.2)[i % 2])
     t += beatB * 4; bar += 1
 
+# optional sleigh bells (Christmas episodes): shaker on every beat, brighter on offbeats
+if (T.get("music") or {}).get("bells"):
+    def bell(t0, g):
+        tt = np.arange(int(0.25 * SR)) / SR
+        sig = sum(np.sin(2 * np.pi * f * tt) for f in (2637, 3520, 4186, 5274)) * np.exp(-tt * 18) * 0.25
+        sig += rnd.standard_normal(len(tt)).astype(np.float32) * np.exp(-tt * 40) * 0.4
+        add(sig.astype(np.float32), t0, g, rnd.uniform(-0.4, 0.4))
+    tb = 0.0
+    while tb < dur - 1:
+        bpm = beat if tb < sw else beatB
+        bell(tb, 0.05 if tb < sw else 0.02); bell(tb + bpm / 2, 0.035 if tb < sw else 0.012)
+        tb += bpm
+
 # crossfade the switch with a soft dip
 k = int(sw * SR); f = int(0.6 * SR)
 if 0 < k < n:
@@ -110,6 +123,15 @@ def sfx(kind, t0):
             for off, g in ((0, 1.0), (0.22, 0.7)):
                 tt = np.arange(int(0.18 * SR)) / SR
                 add((np.sin(2 * np.pi * 55 * tt) * np.exp(-tt * 22)).astype(np.float32), t0 + j * 0.9 + off, 0.9 * g)
+    elif kind == "knock":
+        for j in range(3):
+            tt = np.arange(int(0.12 * SR)) / SR
+            add((lowpass(noise(0.12), 0.08) * np.exp(-tt * 45) * 3 + np.sin(2 * np.pi * 110 * tt) * np.exp(-tt * 35)).astype(np.float32), t0 + j * 0.17, 0.6)
+    elif kind == "cheer":
+        x = lowpass(noise(2.6), 0.25); tt = np.arange(len(x)) / SR
+        env = np.minimum(1, tt / 0.15) * np.exp(-tt * 0.7) * (1 + 0.3 * np.sin(tt * 19))
+        add((x * env / (np.abs(x).max() + 1e-9)).astype(np.float32), t0, 0.35)
+        for j in range(5): sfx("pop", t0 + 0.2 + j * 0.31)
     elif kind == "whoosh":
         ln = 0.35; x = noise(ln); tt = np.arange(len(x)) / SR
         y = np.empty_like(x); acc = 0.0

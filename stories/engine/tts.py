@@ -120,6 +120,6 @@ with wave.open("build/narration.wav", "wb") as w:
     w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
     w.writeframes(audio.astype(np.int16).tobytes())
 total = len(audio) / SR
-json.dump({"duration": round(total, 3), "musicSwitchLine": S.get("musicSwitchLine"), "lines": lines, "words": words}, open("build/timings.json", "w"), indent=1)
+json.dump({"duration": round(total, 3), "musicSwitchLine": S.get("musicSwitchLine"), "music": S.get("music", {}), "lines": lines, "words": words}, open("build/timings.json", "w"), indent=1)
 nw = len(words)
 print(f"duration {total:.1f}s, {nw} words, {nw / total * 60:.0f} wpm, whisper-aligned {aligned}/{len(lines)} lines")
