@@ -1,0 +1,263 @@
+{
+ "title": "In this world, every time the player loads a save, everything resets",
+ "voiceFile": "voice/voiceover.mp3",
+ "musicSwitchLine": 11,
+ "lines": [
+  {
+   "text": "In this world, every time the player loads a save, everything *resets*.",
+   "shots": [
+    "city_wide",
+    "loading_save"
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.75
+    ],
+    [
+     "sparkle",
+     0.8
+    ]
+   ]
+  },
+  {
+   "text": "Crashed cars fix themselves, broken windows grow back.",
+   "shots": [
+    "car_fix",
+    "window_fix"
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.3
+    ],
+    [
+     "glass",
+     0.62
+    ]
+   ]
+  },
+  {
+   "text": "Even the guy who got hit by a bus gets up and buys a hotdog,",
+   "shots": [
+    "bus_guy",
+    "hotdog"
+   ]
+  },
+  {
+   "text": "and nobody remembers anything except *me*.",
+   "shots": [
+    "crowd_normal",
+    "nico_reveal"
+   ]
+  },
+  {
+   "text": "I'm Nico. I'm an *NPC*.",
+   "shots": [
+    "nico_tag"
+   ],
+   "sfx": [
+    [
+     "ui",
+     0.5
+    ]
+   ]
+  },
+  {
+   "text": "My only job is to walk from the bus stop to the corner, *forever*.",
+   "shots": [
+    "nico_walk",
+    "nico_loop"
+   ]
+  },
+  {
+   "text": "But I remember *everything*.",
+   "shots": [
+    "nico_eyes"
+   ]
+  },
+  {
+   "text": "My dad's car has been stolen *4,000* times.",
+   "shots": [
+    "dad_car"
+   ],
+   "sfx": [
+    [
+     "horn",
+     0.4
+    ]
+   ]
+  },
+  {
+   "text": "The player has crashed into my bus stop *300* times.",
+   "shots": [
+    "stop_crash"
+   ],
+   "sfx": [
+    [
+     "crash",
+     0.45
+    ],
+    [
+     "glass",
+     0.5
+    ]
+   ]
+  },
+  {
+   "text": "So I started leaving notes for myself, behind the dumpster.",
+   "shots": [
+    "dumpster_write"
+   ]
+  },
+  {
+   "text": "Day one, day two, day *900*.",
+   "shots": [
+    "notes_wall"
+   ]
+  },
+  {
+   "text": "Then one night at 2.13 a.m. Something was *different*.",
+   "shots": [
+    "night_clock",
+    "night_street"
+   ],
+   "sfx": [
+    [
+     "ui",
+     0.15
+    ]
+   ]
+  },
+  {
+   "text": "The player didn't steal a car. He didn't run.",
+   "shots": [
+    "player_idle"
+   ]
+  },
+  {
+   "text": "He just stood there, *staring* at me.",
+   "shots": [
+    "player_stare",
+    "nico_nervous"
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.2
+    ]
+   ]
+  },
+  {
+   "text": "Then a truck lost control. *Game over* for both of us.",
+   "shots": [
+    "truck_coming",
+    "game_over"
+   ],
+   "sfx": [
+    [
+     "horn",
+     0.1
+    ],
+    [
+     "crash",
+     0.52
+    ],
+    [
+     "gameover",
+     0.6
+    ]
+   ]
+  },
+  {
+   "text": "*Reload*. He came back earlier. The truck hit us again.",
+   "shots": [
+    "reload_1",
+    "truck_again"
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.02
+    ],
+    [
+     "crash",
+     0.85
+    ]
+   ]
+  },
+  {
+   "text": "*Reload*. Again. *47* times.",
+   "shots": [
+    "reload_montage"
+   ],
+   "sfx": [
+    [
+     "whoosh",
+     0.02
+    ],
+    [
+     "whoosh",
+     0.4
+    ],
+    [
+     "whoosh",
+     0.7
+    ]
+   ]
+  },
+  {
+   "text": "On try 48, he grabbed my arm and pulled me out of the way.",
+   "shots": [
+    "try48_grab",
+    "truck_miss"
+   ],
+   "sfx": [
+    [
+     "horn",
+     0.55
+    ],
+    [
+     "whoosh",
+     0.7
+    ]
+   ]
+  },
+  {
+   "text": "Then I saw it. Behind the dumpster, next to my notes, in his handwriting.",
+   "shots": [
+    "dumpster_return",
+    "his_notes"
+   ]
+  },
+  {
+   "text": "Day one, day two, day 900. *Save Nico*.",
+   "shots": [
+    "his_notes_close",
+    "save_nico"
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.0
+    ]
+   ]
+  },
+  {
+   "text": "In this world, nobody remembers when the player reloads. Except me. And now, *him*.",
+   "shots": [
+    "two_remember",
+    "end_pull"
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.85
+    ]
+   ]
+  }
+ ],
+ "music": {
+  "none": true
+ }
+}

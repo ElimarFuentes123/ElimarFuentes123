@@ -606,18 +606,19 @@ export function cam(p0, p1, l0, l1, k, fov = 50) {
   if (shake.amp > 0) { camera.position.x += (Math.random() - 0.5) * shake.amp; camera.position.y += (Math.random() - 0.5) * shake.amp; }
 }
 export function camAt() { return camLook.clone(); }
-const fx = { flash: 0, flashColor: '255,255,255', dark: 0 };
+const fx = { flash: 0, flashColor: '255,255,255', dark: 0, gray: 0 };
 export const effects = {
   flash(a, color = '255,255,255') { fx.flash = Math.max(fx.flash, a); fx.flashColor = color; },
   shake(a) { shake.amp = a; },
   darken(a) { fx.dark = a; },
+  gray(a) { fx.gray = a; },
 };
 const props = [];
 export function prop(p) { props.push(p); return p; }
 
 const FILLER = new Set(['a', 'an', 'the', 'and', 'of', 'to', 'in', 'on', 'it', 'is', 'was', 'i', 'my', 'he', 'his', 'her', 'for', 'at', 'so', 'but', 'with', 'that', 'just']);
 
-export async function run({ timings, shots, captionStyle = 'lime', perFrame }) {
+export async function run({ timings, shots, captionStyle = 'lime', perFrame, overlay }) {
   const T = timings;
   const out = document.getElementById('out'), ctx = out.getContext('2d');
   await document.fonts.load('800 80px Cap');
@@ -638,7 +639,7 @@ export async function run({ timings, shots, captionStyle = 'lime', perFrame }) {
   window.renderAt = (time) => {
     for (const c of chars) { c.hide(); c.grey = 0; c.handGrey = [0, 0]; c.o.look = 0; c.headP.visible = true; }
     for (const p of props) p.visible = false;
-    sparkles.visible = false; fx.flash = 0; fx.dark = 0; shake.amp = 0;
+    sparkles.visible = false; fx.flash = 0; fx.dark = 0; fx.gray = 0; shake.amp = 0;
     let si = list.findIndex((s) => time >= s.start && time < s.end); if (si < 0) si = list.length - 1;
     const s = list[si], t = time - s.start, d = s.end - s.start;
     if (!shots[s.name]) throw new Error('missing shot ' + s.name);
@@ -649,11 +650,13 @@ export async function run({ timings, shots, captionStyle = 'lime', perFrame }) {
     sky.position.copy(camera.position);
     sun.target.position.copy(camLook); sun.position.copy(camLook).add(sunOffset);
     renderer.render(scene, camera);
-    ctx.drawImage(renderer.domElement, 0, 0);
+    ctx.filter = fx.gray > 0 ? `grayscale(${fx.gray})` : 'none';
+    ctx.drawImage(renderer.domElement, 0, 0); ctx.filter = 'none';
     const vg = ctx.createRadialGradient(W / 2, H * 0.48, H * 0.32, W / 2, H * 0.5, H * 0.75);
     vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.32)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
     if (fx.dark > 0) { ctx.fillStyle = `rgba(0,0,0,${fx.dark})`; ctx.fillRect(0, 0, W, H); }
     if (fx.flash > 0) { ctx.fillStyle = `rgba(${fx.flashColor},${fx.flash})`; ctx.fillRect(0, 0, W, H); }
+    overlay?.(ctx, time, s);
     const w = words.find((x) => time >= x.start && time < x.end);
     if (w) {
       const base = 84 * (w.emph ? 1.45 : FILLER.has(w.w.toLowerCase()) ? 0.82 : 1);

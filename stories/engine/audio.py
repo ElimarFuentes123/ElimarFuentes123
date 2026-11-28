@@ -145,6 +145,26 @@ def sfx(kind, t0):
     elif kind == "whistle":
         tt = np.arange(int(0.6 * SR)) / SR; f = 2900 + 120 * np.sign(np.sin(2 * np.pi * 28 * tt))
         add((np.sin(2 * np.pi * np.cumsum(f) / SR) * np.minimum(1, tt / 0.02) * np.minimum(1, (0.6 - tt) / 0.05)).astype(np.float32), t0, 0.14)
+    elif kind == "crash":
+        x = noise(1.2); tt = np.arange(len(x)) / SR
+        add((lowpass(x, 0.25) * np.exp(-tt * 4) * 1.5 + np.sin(2 * np.pi * 60 * tt) * np.exp(-tt * 10)).astype(np.float32), t0, 0.7)
+        sfx("glass", t0 + 0.05)
+    elif kind == "glass":
+        r2 = np.random.default_rng(int(t0 * 100))
+        for j in range(9):
+            tt = np.arange(int(0.25 * SR)) / SR; f = r2.uniform(3000, 7000)
+            add((np.sin(2 * np.pi * f * tt) * np.exp(-tt * 25)).astype(np.float32), t0 + r2.uniform(0, 0.35), 0.08, r2.uniform(-0.6, 0.6))
+    elif kind == "horn":
+        tt = np.arange(int(0.9 * SR)) / SR
+        sig = sum(np.sign(np.sin(2 * np.pi * f * tt)) for f in (311, 392)) * np.minimum(1, tt / 0.02) * np.minimum(1, (0.9 - tt) / 0.05)
+        add(lowpass(sig.astype(np.float32), 0.2), t0, 0.18)
+    elif kind == "gameover":
+        for j, m in enumerate((60, 57, 53, 48)):
+            add(tone(m, 0.8, 2.5, 4), t0 + j * 0.22, 0.35)
+    elif kind == "ui":
+        for j, m in enumerate((84, 91)):
+            tt = np.arange(int(0.12 * SR)) / SR
+            add((np.sign(np.sin(2 * np.pi * hz(m) * tt)) * np.exp(-tt * 20)).astype(np.float32), t0 + j * 0.09, 0.06)
     elif kind == "whoosh":
         ln = 0.35; x = noise(ln); tt = np.arange(len(x)) / SR
         y = np.empty_like(x); acc = 0.0
@@ -172,6 +192,8 @@ def write(path, l, r):
     st = np.stack([l, r], 1); st = np.clip(st, -1, 1)
     with wave.open(path, "wb") as w:
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((st * 32767).astype(np.int16).tobytes())
+if (T.get("music") or {}).get("none"):
+    music = (music[0] * 0, music[1] * 0)
 write("build/music.wav", *music)
 write("build/sfx.wav", L, R)
 print("music + sfx written", round(dur, 1), "s")
