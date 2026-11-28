@@ -219,7 +219,7 @@ const S = {
     nico.pose({ t, headY: -0.5 }); tag(nico, 'NICO', 'rgba(46,125,50,0.85)'); tag(player, 'PLAYER', 'rgba(25,118,210,0.85)');
     cam([1.0, 2.2, 7.5], [1.4, 2.2, 6.4], [5.8, 1.9, 0.8], [5.8, 1.9, 0.8], ease(k), 50);
   },
-  end_pull(t, d, k) { night(); nicoAtStop(t, 'happy'); player.place(5.2, SW, 0.9, Math.PI / 2 + 0.5); player.expr = 'happy'; player.pose({ t }); OV.saved = clamp01((k - 0.3) * 3); cam([1.4, 2.2, 6.4], [-14, 24, 30], [5.8, 1.9, 0.8], [3, 0, -6], ease(k), 52); },
+  end_pull(t, d, k) { night(); nicoAtStop(t, 'happy'); player.place(5.2, SW, 0.9, Math.PI / 2 + 0.5); player.expr = 'happy'; player.pose({ t }); OV.saved = clamp01((k - 0.3) * 3); cam([1.4, 2.2, 6.4], [-1.5, 5.5, 13], [5.8, 1.9, 0.8], [5.4, 1.6, 0.6], ease(k), 52); },
 };
 const wrapped = Object.fromEntries(Object.entries(S).map(([n, f]) => [n, (...a) => { resetOV(); hisNotes.visible = true; f(...a); }]));
 E.run({ timings: T, shots: wrapped, captionStyle: 'lime', overlay });
