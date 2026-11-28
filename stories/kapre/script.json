@@ -3,11 +3,12 @@
  "series": "ALAS TRES",
  "audio": "horror_audio",
  "tts": {
-  "engine": "kokoro",
-  "voice": "am_onyx",
-  "speed": 0.76,
-  "pitch": 0,
-  "note": "free local voice; closest pitch match to the reference narrator (85 Hz vs 89 Hz)"
+  "engine": "clone",
+  "ref": "voices/horror_narrator_ref.mp3",
+  "exaggeration": 0.4,
+  "cfg": 0.5,
+  "speed": 1.0,
+  "note": "Chatterbox clone of the user's chosen horror narrator MP3 (user says it is free to use)"
  },
  "gap": 0.22,
  "lines": [

@@ -18,6 +18,16 @@ elif TTS["engine"] == "elevenlabs":
     # ElevenLabs via HTTPS; the API key is injected by the environment's network proxy (never stored here)
     import subprocess, tempfile, hashlib, os
     SR = 24000
+elif TTS["engine"] == "clone":
+    # local voice clone (Chatterbox) of a reference recording; all lines generated up front, cached by text
+    import subprocess, hashlib, os
+    SR = 24000
+    os.makedirs("build/clone_cache", exist_ok=True)
+    ref = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", TTS["ref"])
+    def clone_path(text): return "build/clone_cache/" + hashlib.sha1(json.dumps([TTS, text]).encode()).hexdigest()[:16] + ".wav"
+    jobs = [{"out": clone_path(l["text"].replace("*", "")), "text": l["text"].replace("*", ""), "exaggeration": TTS.get("exaggeration", 0.4), "cfg": TTS.get("cfg", 0.5)} for l in S["lines"]]
+    json.dump(jobs, open("build/clone_jobs.json", "w"))
+    subprocess.run([TTS.get("python", "/home/user/venvs/clone/bin/python"), os.path.join(os.path.dirname(os.path.abspath(__file__)), "clone_lines.py"), ref, "build/clone_jobs.json"], check=True)
 else:
     from piper import PiperVoice
     from piper.config import SynthesisConfig
@@ -52,6 +62,18 @@ def synth(text, prev_text="", next_text=""):
         wav = mp3[:-4] + ".wav"
         subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", mp3, "-ac", "1", "-ar", str(SR), "-f", "s16le", wav], check=True)
         a = np.fromfile(wav, np.int16).astype(np.float32)
+        nz = np.where(np.abs(a) > 300)[0]
+        return a[max(0, nz[0] - 200): nz[-1] + 400]
+    if TTS["engine"] == "clone":
+        import soundfile as sf
+        a, sr = sf.read(clone_path(text), dtype="float32")
+        if TTS.get("speed", 1.0) != 1.0:
+            import subprocess, tempfile
+            with tempfile.TemporaryDirectory() as d:
+                sf.write(f"{d}/i.wav", a, sr)
+                subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", f"{d}/i.wav", "-af", f"atempo={TTS['speed']}", "-ar", str(SR), f"{d}/o.wav"], check=True)
+                a, sr = sf.read(f"{d}/o.wav", dtype="float32")
+        a = a * 32767 * 0.9 / (abs(a).max() + 1e-9)
         nz = np.where(np.abs(a) > 300)[0]
         return a[max(0, nz[0] - 200): nz[-1] + 400]
     if TTS["engine"] == "kokoro":
