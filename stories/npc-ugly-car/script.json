@@ -1,0 +1,27 @@
+{
+ "title": "In this world, the player steals a car every 30 seconds",
+ "series": "NPC Nico (In This World) - episode 2",
+ "tts": {"engine": "kokoro", "voice": "am_fenrir", "speed": 1.1, "pitch": 0, "note": "free local placeholder (ElevenLabs free quota used up); swap to Valf unWb9iRIK7Xxf4A5Hfis via elevenlabs engine when the plan allows"},
+ "gap": 0.14,
+ "musicSwitchLine": 9,
+ "lines": [
+  { "text": "In this world, the player steals a car every *30 seconds*.", "shots": ["steal_a", "steal_b"], "sfx": [["whoosh", 0.45], ["whoosh", 0.9]] },
+  { "text": "The pizza guy walks to work. The mayor rides a bike. Nobody here has owned a car for more than a *minute*.", "shots": ["pizza_walk", "mayor_bike", "owned_timer"], "sfx": [["pop", 0.5]] },
+  { "text": "Except my dad. He *never* gives up.", "shots": ["dad_proud"] },
+  { "text": "Every morning, he buys a brand new car.", "shots": ["dealership"], "sfx": [["sparkle", 0.5]] },
+  { "text": "And every morning, the player steals it. Usually before Dad even finds his *keys*.", "shots": ["dad_keys", "car_gone"], "sfx": [["whoosh", 0.55]] },
+  { "text": "On day 312, Dad sat on the curb and said, Nico, maybe we're just *NPCs*.", "shots": ["dad_curb", "nico_sad"], "pause": 0.4 },
+  { "text": "So I made a plan.", "shots": ["nico_plan"], "pause": 0.3 },
+  { "text": "The player only steals *cool* cars. So I built the *ugliest* car in the whole game.", "shots": ["garage_build", "garage_build2"], "sfx": [["clicks", 0.3], ["clicks", 0.75]] },
+  { "text": "Pink doors. A couch for a seat. And a *toilet* for a horn.", "shots": ["ugly_doors", "ugly_couch", "toilet_horn"], "sfx": [["pop", 0.2], ["laugh", 0.9]] },
+  { "text": "Dad parked it on the street, and we waited.", "shots": ["park_wait"], "pause": 0.3 },
+  { "text": "One minute. Ten minutes. *One hour*.", "shots": ["clock_1", "clock_10", "clock_60"], "sfx": [["click", 0.05], ["click", 0.38], ["click", 0.72]] },
+  { "text": "Nobody stole it. Dad *cried*. Happy tears.", "shots": ["dad_happy"], "sfx": [["sparkle", 0.6]] },
+  { "text": "Then the player walked by. He stopped. He stared.", "shots": ["player_walks", "player_stares"], "sfx": [["heartbeat", 0.5]] },
+  { "text": "And he took a *photo*.", "shots": ["photo_flash"], "sfx": [["click", 0.6], ["sparkle", 0.65]], "pause": 0.35 },
+  { "text": "The next morning, *500* players were outside our house.", "shots": ["crowd_reveal"], "sfx": [["crowd", 0.3]] },
+  { "text": "Taking selfies with the ugliest car in the game.", "shots": ["selfies", "selfies2"], "sfx": [["click", 0.2], ["click", 0.5], ["click", 0.8]] },
+  { "text": "Now Dad sells *tickets*.", "shots": ["dad_tickets"], "sfx": [["cheer", 0.4]] },
+  { "text": "In this world, the player steals a car every 30 seconds. Except ours. Ours, they line up to *see*.", "shots": ["end_line", "end_pull"] }
+ ]
+}
