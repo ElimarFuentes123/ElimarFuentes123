@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
   await page.goto(`http://127.0.0.1:${server.address().port}/stories/npc-world/index.html`);
   await page.waitForFunction('window.ready === true', null, { timeout: 120000 });
   const out = path.join(ROOT, 'brand/npc-world');
-  for (const [fn, name] of [['renderProfile', 'profile_picture.png']]) {
+  for (const [fn, name] of [['renderProfile', 'profile_picture.png'], ['renderBanner', 'youtube_banner.png']]) {
     const data = await page.evaluate((f) => window[f](), fn);
     fs.writeFileSync(path.join(out, name), Buffer.from(data.split(',')[1], 'base64')); console.log('wrote', name);
   }
