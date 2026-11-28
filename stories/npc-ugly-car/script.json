@@ -1,7 +1,7 @@
 {
  "title": "In this world, the player steals a car every 30 seconds",
  "series": "NPC Nico (In This World) - episode 2",
- "tts": {"engine": "kokoro", "voice": "am_fenrir", "speed": 1.1, "pitch": 0, "note": "free local placeholder (ElevenLabs free quota used up); swap to Valf unWb9iRIK7Xxf4A5Hfis via elevenlabs engine when the plan allows"},
+ "tts": {"engine": "kokoro", "voice": "am_liam", "speed": 1.1, "pitch": 0, "note": "free local placeholder (ElevenLabs free quota used up); swap to Valf unWb9iRIK7Xxf4A5Hfis via elevenlabs engine when the plan allows"},
  "gap": 0.14,
  "musicSwitchLine": 9,
  "lines": [
