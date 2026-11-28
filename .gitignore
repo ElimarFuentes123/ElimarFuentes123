@@ -7,3 +7,5 @@ renders/
 *.m4a
 *.wav
 .env
+stories/*/build/
+*.info.json

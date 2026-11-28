@@ -1,0 +1,181 @@
+{
+ "title": "In this school, no kid has ever owed lunch money",
+ "tts": {
+  "engine": "kokoro",
+  "voice": "am_liam",
+  "speed": 0.96,
+  "pitch": 0,
+  "note": "free match for the user's MP3 voice (ElevenLabs Liam TX3LPaxmHKxFdv7VOQHJ); use elevenlabs/Liam when credits allow"
+ },
+ "gap": 0.16,
+ "musicSwitchLine": 3,
+ "lines": [
+  {
+   "text": "In this school, no kid has ever owed lunch money. *Not once*.",
+   "shots": [
+    "cafeteria_wide",
+    "register_zero"
+   ],
+   "sfx": [
+    [
+     "ui",
+     0.8
+    ]
+   ]
+  },
+  {
+   "text": "Rich kids, poor kids, it doesn't matter. Everyone's balance is always *zero*.",
+   "shots": [
+    "kids_line",
+    "balance_zero"
+   ]
+  },
+  {
+   "text": "Except *me*. I've never paid for a single lunch.",
+   "shots": [
+    "kid_tray"
+   ]
+  },
+  {
+   "text": "My mom works two jobs. Some weeks, the fridge is *empty*.",
+   "shots": [
+    "mom_tired",
+    "fridge_empty"
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "But every day, Miss Rosa gives me the *biggest* tray.",
+   "shots": [
+    "rosa_tray"
+   ]
+  },
+  {
+   "text": "And she always says the same thing. Eat, mijo. It's *paid*.",
+   "shots": [
+    "rosa_close"
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "But I noticed things.",
+   "shots": [
+    "kid_notice"
+   ],
+   "pause": 0.3
+  },
+  {
+   "text": "Miss Rosa walks to work. Even in the *rain*.",
+   "shots": [
+    "rosa_rain"
+   ],
+   "rain": true
+  },
+  {
+   "text": "Her shoes have *holes* in them.",
+   "shots": [
+    "shoes_close"
+   ],
+   "rain": true
+  },
+  {
+   "text": "And every Friday, she stays late, counting her *own* money at the register.",
+   "shots": [
+    "rosa_counting"
+   ],
+   "sfx": [
+    [
+     "clicks",
+     0.5
+    ]
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "On her last day before retiring, I found her notebook.",
+   "shots": [
+    "last_day",
+    "notebook_find"
+   ],
+   "sfx": [
+    [
+     "rustle",
+     0.7
+    ]
+   ]
+  },
+  {
+   "text": "Twenty years of names. Hundreds of kids. Every lunch she paid for, with her *own* salary.",
+   "shots": [
+    "notebook_pages",
+    "names_close"
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "On the very last page, was *my* name.",
+   "shots": [
+    "my_name"
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.1
+    ]
+   ],
+   "pause": 0.5
+  },
+  {
+   "text": "So I told *everyone*.",
+   "shots": [
+    "kid_tells"
+   ]
+  },
+  {
+   "text": "The kids. The teachers. Even the kids she fed twenty years ago, who were grown up now.",
+   "shots": [
+    "spread_1",
+    "spread_2"
+   ]
+  },
+  {
+   "text": "That afternoon, the whole town lined up outside the cafeteria.",
+   "shots": [
+    "line_outside"
+   ],
+   "sfx": [
+    [
+     "crowd",
+     0.2
+    ]
+   ]
+  },
+  {
+   "text": "And this time, *we* paid.",
+   "shots": [
+    "jar_fill"
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.5
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "Miss Rosa cried. Then she smiled, and said, Eat, mijo. It's *paid*.",
+   "shots": [
+    "rosa_cry",
+    "rosa_smile"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "In this school, no kid ever owes lunch money. Because someone always *pays*.",
+   "shots": [
+    "end_pull"
+   ]
+  }
+ ]
+}

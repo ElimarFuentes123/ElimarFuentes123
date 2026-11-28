@@ -1,0 +1,213 @@
+{
+ "title": "In this town, nobody locks their doors",
+ "tts": {
+  "engine": "elevenlabs",
+  "voice": "Liam",
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "model": "eleven_multilingual_v2",
+  "speed": 0.93,
+  "stability": 0.32,
+  "style": 0.45
+ },
+ "gap": 0.18,
+ "musicSwitchLine": 5,
+ "lines": [
+  {
+   "text": "In this town, nobody locks their doors. *Ever*.",
+   "shots": [
+    "open_doors",
+    "door_close_open"
+   ],
+   "sfx": [
+    [
+     "creak",
+     0.55
+    ]
+   ]
+  },
+  {
+   "text": "The baker leaves his shop open all night. Mrs. Lee's door doesn't even *have* a lock.",
+   "shots": [
+    "baker",
+    "mrs_lee"
+   ]
+  },
+  {
+   "text": "Except *us*. Our front door has *seven* locks.",
+   "shots": [
+    "our_door",
+    "locks_pan"
+   ],
+   "sfx": [
+    [
+     "clicks",
+     0.55
+    ]
+   ]
+  },
+  {
+   "text": "The kids at school call our house the *prison*.",
+   "shots": [
+    "kids_tease"
+   ],
+   "sfx": [
+    [
+     "laugh",
+     0.3
+    ]
+   ]
+  },
+  {
+   "text": "Every night, Dad checks every lock. *Twice*.",
+   "shots": [
+    "dad_checks",
+    "lock_hand"
+   ],
+   "sfx": [
+    [
+     "clicks",
+     0.2
+    ],
+    [
+     "clicks",
+     0.75
+    ]
+   ]
+  },
+  {
+   "text": "The room next to mine has been empty since I was four.",
+   "shots": [
+    "empty_hall",
+    "empty_room"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "And Dad never drives on Highway *Nine*. Even when it's faster.",
+   "shots": [
+    "highway_sign",
+    "car_turns"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "So one night, I decided to prove the locks were *stupid*.",
+   "shots": [
+    "bed_determined"
+   ]
+  },
+  {
+   "text": "I tiptoed downstairs, and found Dad, *asleep* in a chair, right in front of the door.",
+   "shots": [
+    "tiptoe",
+    "dad_chair_reveal",
+    "dad_chair_close"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "So I went up to the attic instead.",
+   "shots": [
+    "attic_enter"
+   ],
+   "sfx": [
+    [
+     "creak",
+     0.2
+    ]
+   ]
+  },
+  {
+   "text": "In an old box, I found a newspaper.",
+   "shots": [
+    "box_open",
+    "paper_lift"
+   ],
+   "sfx": [
+    [
+     "rustle",
+     0.6
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "Boy, six, sleepwalks out of unlocked home, onto Highway *Nine*.",
+   "shots": [
+    "headline"
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.1
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "The boy in the picture looked *exactly* like me.",
+   "shots": [
+    "photo_close",
+    "kid_shock"
+   ],
+   "sfx": [
+    [
+     "heartbeat",
+     0.0
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "It was my *brother*.",
+   "shots": [
+    "kid_cry"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "Dad wasn't locking people *out*.",
+   "shots": [
+    "dad_sleep_close"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "He was locking us *in*. So he would never lose another kid.",
+   "shots": [
+    "locks_slow",
+    "dad_wide_lonely"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "I sat down next to his chair, and fell asleep there too.",
+   "shots": [
+    "kid_sits",
+    "both_sleep"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "In the morning, he didn't say a word. He just handed me my own *key*.",
+   "shots": [
+    "morning_wake",
+    "key_hand"
+   ],
+   "sfx": [
+    [
+     "sparkle",
+     0.85
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "In this town, nobody locks their doors. Except the people who learned *why*.",
+   "shots": [
+    "house_morning",
+    "end_pull"
+   ]
+  }
+ ]
+}

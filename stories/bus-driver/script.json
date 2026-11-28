@@ -1,0 +1,26 @@
+{
+ "title": "In this town, the school bus never leaves until every kid is on",
+ "tts": {"engine": "kokoro", "voice": "am_liam", "speed": 0.96, "pitch": 0, "note": "free match for the channel voice (ElevenLabs Liam TX3LPaxmHKxFdv7VOQHJ)"},
+ "gap": 0.16,
+ "musicSwitchLine": 5,
+ "lines": [
+  { "text": "In this town, the school bus never leaves until *every* kid is on. *No* exceptions.", "shots": ["bus_stop_wide", "earl_watch"], "sfx": [["horn", 0.85]] },
+  { "text": "Even if it rains. Even if it makes the whole bus late.", "shots": ["rain_wait", "kids_groan"], "rain": true },
+  { "text": "And every morning, the kid it waits for, is *me*.", "shots": ["kid_running"] },
+  { "text": "The whole bus calls me *Late* Leo.", "shots": ["bus_tease"], "sfx": [["laugh", 0.3]] },
+  { "text": "Mister Earl, the driver, never says a word. He just nods, and closes the door.", "shots": ["earl_nod", "door_close"], "sfx": [["creak", 0.85]] },
+  { "text": "But I noticed things.", "shots": ["kid_window"], "pause": 0.3 },
+  { "text": "He keeps a small *pink* lunchbox on his dashboard.", "shots": ["pink_lunchbox"] },
+  { "text": "There's a warning letter on his seat. Late for his second job. *Again*.", "shots": ["warning_letter"], "sfx": [["rustle", 0.2]] },
+  { "text": "And whenever I forget my little sister's lunch, it somehow shows up at her daycare anyway.", "shots": ["daycare_lunch"], "pause": 0.35 },
+  { "text": "Nobody knows why I'm late.", "shots": ["kid_sad"], "pause": 0.3 },
+  { "text": "My mom works nights. So every morning, I wake up my sister, make her breakfast, and tie her shoes.", "shots": ["mom_asleep", "sister_wake", "breakfast", "shoes"] },
+  { "text": "Then I walk her to daycare, and *run*.", "shots": ["walk_daycare", "run_street"] },
+  { "text": "One morning, I was so late, I knew the bus had to be *gone*.", "shots": ["kid_panic"], "sfx": [["heartbeat", 0.2]] },
+  { "text": "But when I turned the corner, it was still *there*.", "shots": ["bus_still_there"], "pause": 0.35 },
+  { "text": "Mister Earl was standing outside, holding a pink lunchbox. My sister's.", "shots": ["earl_lunchbox", "lunchbox_close"], "pause": 0.35 },
+  { "text": "He smiled and said, I know, kid. I've known all year.", "shots": ["earl_smile"], "pause": 0.35 },
+  { "text": "And for the first time, nobody on that bus said a *word*.", "shots": ["bus_quiet"], "pause": 0.35 },
+  { "text": "In this town, the bus waits for every kid. *Especially* the ones nobody waits for at home.", "shots": ["end_pull"], "sfx": [["horn", 0.9]] }
+ ]
+}

@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@fontsource/anton": "^5.3.0",
-    "@fontsource/bodoni-moda": "^5.3.0"
+    "@fontsource/bodoni-moda": "^5.3.0",
+    "@fontsource/poppins": "^5.1.0",
+    "three": "^0.170.0"
   }
 }

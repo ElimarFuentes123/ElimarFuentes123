@@ -1,0 +1,16 @@
+[
+  {"shot": "town",      "text": "In this town, when someone forgets you, you start turning grey."},
+  {"shot": "grandpa",   "text": "My grandpa forgets everything."},
+  {"shot": "keys",      "text": "His keys. His glasses. Sometimes, even my name."},
+  {"shot": "mom",       "text": "Mom says one day, he'll forget me completely."},
+  {"shot": "hand",      "text": "This morning, my hand started turning grey."},
+  {"shot": "run",       "text": "I ran all the way to his house."},
+  {"shot": "window",    "text": "He was sitting by the window, holding an old photo."},
+  {"shot": "ask",       "text": "Who's that? I asked."},
+  {"shot": "smile",     "text": "My best friend. I forget everything. But never him.", "voice": "grandpa"},
+  {"shot": "photo",     "text": "It was me."},
+  {"shot": "handback",  "text": "And my hand turned warm again."},
+  {"shot": "greyhand",  "text": "Then I noticed. Grandpa's hands were grey."},
+  {"shot": "street2",   "text": "Everyone in town had forgotten him."},
+  {"shot": "porch",     "text": "Except me. So now, I visit him every single day."}
+]
