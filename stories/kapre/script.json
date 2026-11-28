@@ -1,0 +1,259 @@
+{
+ "title": "Kapre | Episode 1 [1 of 2] - If you smell cigar smoke under a balete tree",
+ "series": "ALAS TRES",
+ "audio": "horror_audio",
+ "tts": {
+  "engine": "kokoro",
+  "voice": "am_onyx",
+  "speed": 0.76,
+  "pitch": 0,
+  "note": "free local voice; closest pitch match to the reference narrator (85 Hz vs 89 Hz)"
+ },
+ "gap": 0.22,
+ "lines": [
+  {
+   "text": "In the Philippines, if you smell cigar smoke under a big balete tree at night, *don't* look up.",
+   "shots": [
+    "hook_tree",
+    "smoke_roots"
+   ],
+   "weights": [
+    1.4,
+    1
+   ]
+  },
+  {
+   "text": "And *never* say a bad word about that tree.",
+   "shots": [
+    "roots_low"
+   ]
+  },
+  {
+   "text": "Because it's a *kapre*. A giant who lives in the old balete trees, smoking a cigar that never goes out.",
+   "shots": [
+    "kapre_eyes",
+    "kapre_reveal"
+   ],
+   "sfx": [
+    [
+     "hit",
+     0.05
+    ]
+   ],
+   "weights": [
+    1,
+    1.6
+   ]
+  },
+  {
+   "text": "Insult its tree, and it plays with you. You walk and walk, but every road leads back to the *same* tree.",
+   "shots": [
+    "loop_top",
+    "tree_return"
+   ]
+  },
+  {
+   "text": "That's why our lolas told us, say tabi tabi po when you pass. And if you get lost, turn your shirt *inside out*.",
+   "shots": [
+    "lola_porch",
+    "lola_close"
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "In 2009, my kuya Jun was sixteen.",
+   "shots": [
+    "jun_intro"
+   ]
+  },
+  {
+   "text": "He was walking home from a basketball game, past the old balete at the end of our road.",
+   "shots": [
+    "jun_walk_wide",
+    "jun_walk_track"
+   ]
+  },
+  {
+   "text": "Then he smelled smoke. Sweet and heavy. Like a cigar.",
+   "shots": [
+    "smoke_drift",
+    "jun_sniff"
+   ]
+  },
+  {
+   "text": "He looked up, and saw a tiny red light, *high* in the branches.",
+   "shots": [
+    "jun_lookup",
+    "ember_high"
+   ],
+   "sfx": [
+    [
+     "sting",
+     0.75
+    ]
+   ]
+  },
+  {
+   "text": "Jun laughed. He kicked the roots and said, this ugly tree should be *cut down*.",
+   "shots": [
+    "jun_laugh",
+    "jun_kick"
+   ],
+   "sfx": [
+    [
+     "thud",
+     0.55
+    ]
+   ]
+  },
+  {
+   "text": "The red light went *dark*.",
+   "shots": [
+    "ember_out"
+   ],
+   "sfx": [
+    [
+     "hit",
+     0.6
+    ]
+   ],
+   "pause": 0.5
+  },
+  {
+   "text": "He kept walking. Ten minutes later, he was back at the balete.",
+   "shots": [
+    "jun_walk_on",
+    "back_at_tree"
+   ]
+  },
+  {
+   "text": "He turned around and went the other way. The balete. *Again*.",
+   "shots": [
+    "jun_turn",
+    "tree_again"
+   ],
+   "sfx": [
+    [
+     "sting",
+     0.8
+    ]
+   ]
+  },
+  {
+   "text": "Three times. And every time, the smoke got *thicker*.",
+   "shots": [
+    "loop_smoke",
+    "smoke_thick"
+   ]
+  },
+  {
+   "text": "Then something laughed above him. Deep and slow, like the tree itself was laughing.",
+   "shots": [
+    "canopy_laugh",
+    "jun_terror"
+   ],
+   "sfx": [
+    [
+     "laugh",
+     0.05
+    ],
+    [
+     "heartbeat",
+     0.55
+    ]
+   ],
+   "pause": 0.4
+  },
+  {
+   "text": "He remembered what Lola said.",
+   "shots": [
+    "lola_memory"
+   ]
+  },
+  {
+   "text": "So he pulled off his shirt, turned it inside out, and whispered, tabi tabi po. I'm *sorry*.",
+   "shots": [
+    "jun_shirt",
+    "jun_sorry"
+   ],
+   "sfx": [
+    [
+     "rustle",
+     0.15
+    ]
+   ],
+   "weights": [
+    1.1,
+    1
+   ]
+  },
+  {
+   "text": "And just like that, he could see our porch light.",
+   "shots": [
+    "porch_light"
+   ],
+   "sfx": [
+    [
+     "release",
+     0.1
+    ]
+   ],
+   "pause": 0.35
+  },
+  {
+   "text": "The next morning, on our doorstep, was a pile of grey *ash*.",
+   "shots": [
+    "ash_doorstep"
+   ],
+   "sfx": [
+    [
+     "hit",
+     0.85
+    ]
+   ],
+   "pause": 0.45
+  },
+  {
+   "text": "Kuya Jun is thirty now. Last night, he called me at three a.m.",
+   "shots": [
+    "adult_jun",
+    "phone_call"
+   ],
+   "sfx": [
+    [
+     "phone",
+     0.55
+    ]
+   ]
+  },
+  {
+   "text": "He said, I'm under the balete. I can smell the smoke.",
+   "shots": [
+    "adult_under_tree",
+    "ember_return"
+   ]
+  },
+  {
+   "text": "And my shirt is *already* inside out.",
+   "shots": [
+    "adult_shirt",
+    "kapre_final"
+   ],
+   "sfx": [
+    [
+     "hit",
+     0.62
+    ]
+   ],
+   "weights": [
+    1.2,
+    1
+   ],
+   "pause": 0.3
+  }
+ ],
+ "mix": {
+  "music": 0.32,
+  "sfx": 0.6
+ }
+}

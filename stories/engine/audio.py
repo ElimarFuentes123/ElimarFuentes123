@@ -1,0 +1,199 @@
+"""Music bed + sound effects for an episode (all synthesized, royalty-free) -> build/mix_bg.wav
+Reads build/timings.json (lines carry sfx cues [[type, fraction_of_line]] and a rain flag).
+Section A (before musicSwitchLine): playful pizzicato. Section B: emotional piano, lifting to major for the last 3 lines.
+"""
+import json, wave
+import numpy as np
+
+SR = 44100
+T = json.load(open("build/timings.json"))
+dur = T["duration"]; n = int(SR * dur)
+L = np.zeros(n, np.float32); R = np.zeros(n, np.float32)
+rnd = np.random.default_rng(7)
+lines = T["lines"]
+sw = lines[T.get("musicSwitchLine") or len(lines)]["start"] if T.get("musicSwitchLine") is not None else dur
+lift = lines[-3]["start"] - 0.3 if len(lines) > 3 else dur
+
+def hz(m): return 440 * 2 ** ((m - 69) / 12)
+def add(sig, t0, gain=1.0, pan=0.0):
+    s = int(t0 * SR)
+    if s >= n or s + len(sig) <= 0: return
+    a, b = max(0, -s), min(len(sig), n - s)
+    L[s + a:s + b] += sig[a:b] * gain * (1 - max(0, pan)); R[s + a:s + b] += sig[a:b] * gain * (1 + min(0, pan))
+def tone(m, length, decay, harm=6, bright=1.6):
+    t = np.arange(int(length * SR)) / SR; f = hz(m)
+    w = sum(np.sin(2 * np.pi * f * k * t) / k ** bright * np.exp(-t * (decay + k * 0.8)) for k in range(1, harm + 1))
+    return (w * np.minimum(1, t / 0.004)).astype(np.float32)
+def noise(length): return rnd.standard_normal(int(length * SR)).astype(np.float32)
+def lowpass(x, a):  # one-pole, a in (0,1): smaller = darker
+    y = np.empty_like(x); acc = 0.0
+    for i in range(len(x)): acc += a * (x[i] - acc); y[i] = acc
+    return y
+
+# ---- section A: playful pizzicato (C major, 112 bpm) ----
+beat = 60 / 112
+progA = [[48, 52, 55, 60], [45, 48, 52, 57], [41, 45, 48, 53], [43, 47, 50, 55]]
+t = 0.0; bar = 0
+while t < sw - 0.1:
+    ch = progA[bar % 4]
+    for b in range(4):
+        tb = t + b * beat
+        if tb >= sw: break
+        add(tone(ch[0] - 12 if b % 2 == 0 else ch[2] - 12, 0.5, 5, 4), tb, 0.22)
+        add(tone(ch[(b + 1) % 4] + 12, 0.35, 9, 5, 1.2), tb, 0.10, -0.3)
+        add(tone(ch[(b + 3) % 4] + 12, 0.3, 9, 5, 1.2), tb + beat / 2, 0.08, 0.3)
+        click = noise(0.03) * np.exp(-np.arange(int(0.03 * SR)) / SR * 160)
+        add(click, tb + beat / 2, 0.03)
+    t += beat * 4; bar += 1
+
+# ---- section B: emotional piano (A minor, 70 bpm), lifts to C major near the end ----
+beatB = 60 / 70
+progB = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]]
+progC = [[53, 57, 60], [55, 59, 62], [48, 52, 55], [57, 60, 64]]
+t = sw; bar = 0
+while t < dur - 0.5:
+    ch = (progC if t >= lift else progB)[bar % 4]
+    tt = np.arange(int((beatB * 4 + 1.5) * SR)) / SR; env = np.minimum(1, tt / 1.0) * np.minimum(1, (beatB * 4 + 1.5 - tt) / 1.0)
+    pad = sum(np.sin(2 * np.pi * hz(m - 12) * tt) + 0.5 * np.sin(2 * np.pi * hz(m - 12) * 1.004 * tt) for m in ch) * env
+    add(pad.astype(np.float32), t, 0.028)
+    add(tone(ch[0] - 12, 4, 0.9), t, 0.26)
+    for i, m in enumerate([ch[0] + 12, ch[1] + 12, ch[2] + 12, ch[1] + 12]):
+        add(tone(m, 2.5, 1.3), t + i * beatB, 0.12 if t < lift else 0.15, (-0.2, 0.2)[i % 2])
+    t += beatB * 4; bar += 1
+
+# optional sleigh bells (Christmas episodes): shaker on every beat, brighter on offbeats
+if (T.get("music") or {}).get("bells"):
+    def bell(t0, g):
+        tt = np.arange(int(0.25 * SR)) / SR
+        sig = sum(np.sin(2 * np.pi * f * tt) for f in (2637, 3520, 4186, 5274)) * np.exp(-tt * 18) * 0.25
+        sig += rnd.standard_normal(len(tt)).astype(np.float32) * np.exp(-tt * 40) * 0.4
+        add(sig.astype(np.float32), t0, g, rnd.uniform(-0.4, 0.4))
+    tb = 0.0
+    while tb < dur - 1:
+        bpm = beat if tb < sw else beatB
+        bell(tb, 0.05 if tb < sw else 0.02); bell(tb + bpm / 2, 0.035 if tb < sw else 0.012)
+        tb += bpm
+
+# crossfade the switch with a soft dip
+k = int(sw * SR); f = int(0.6 * SR)
+if 0 < k < n:
+    w = np.ones(n, np.float32); w[max(0, k - f):k] = np.linspace(1, 0.2, min(f, k)); w[k:k + f] = np.linspace(0.2, 1, len(w[k:k + f]))
+    L *= w; R *= w
+mus_peak = max(np.abs(L).max(), np.abs(R).max()) + 1e-9
+L *= 0.9 / mus_peak; R *= 0.9 / mus_peak
+music = (L.copy(), R.copy())
+L[:] = 0; R[:] = 0
+
+# ---- sound effects ----
+def sfx(kind, t0):
+    if kind == "pop":
+        tt = np.arange(int(0.18 * SR)) / SR; f = 900 * np.exp(-tt * 14) + 300
+        add((np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 22)).astype(np.float32), t0, 0.5)
+    elif kind == "sparkle":
+        for i, m in enumerate([88, 91, 95, 100, 103]): add(tone(m, 1.2, 3, 3), t0 + i * 0.06, 0.09, (-0.4, 0.4)[i % 2])
+    elif kind in ("thunder", "thunder_small"):
+        big = kind == "thunder"; ln = 3.5 if big else 1.6
+        x = lowpass(noise(ln), 0.02 if big else 0.04); tt = np.arange(len(x)) / SR
+        env = (np.minimum(1, tt / 0.03) * np.exp(-tt * (1.1 if big else 2.5))) * (1 + 0.6 * np.sin(tt * 9))
+        crack = noise(0.12) * np.exp(-np.arange(int(0.12 * SR)) / SR * 30)
+        y = x * env / (np.abs(x).max() + 1e-9)
+        add(y.astype(np.float32), t0, 0.9 if big else 0.45); add(lowpass(crack, 0.3), t0, 0.35 if big else 0.15)
+    elif kind == "crowd":
+        x = lowpass(noise(2.2), 0.08); tt = np.arange(len(x)) / SR
+        env = np.minimum(1, tt / 0.4) * np.minimum(1, (2.2 - tt) / 0.6) * (1 + 0.4 * np.sin(tt * 13))
+        add((x * env / (np.abs(x).max() + 1e-9)).astype(np.float32), t0, 0.25)
+    elif kind == "click":
+        tt = np.arange(int(0.06 * SR)) / SR
+        add((noise(0.06) * np.exp(-tt * 90) + np.sin(2 * np.pi * 2400 * tt) * np.exp(-tt * 120) * 0.5).astype(np.float32), t0, 0.35)
+    elif kind == "clicks":  # a run of lock clicks / deadbolts
+        for j in range(7): sfx("click", t0 + j * 0.13)
+    elif kind == "creak":
+        ln = 1.1; tt = np.arange(int(ln * SR)) / SR; f = 180 + 60 * np.sin(tt * 3.1) + 25 * np.sin(tt * 17)
+        sig = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * (0.6 + 0.4 * np.sin(tt * 40)) * np.minimum(1, tt / 0.1) * np.minimum(1, (ln - tt) / 0.3)
+        add(lowpass(sig.astype(np.float32), 0.15), t0, 0.12)
+    elif kind == "laugh":
+        for j in range(6):
+            tt = np.arange(int(0.16 * SR)) / SR; f = 420 + 80 * (j % 3) - tt * 300
+            add((np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * tt / 0.16) ** 2).astype(np.float32), t0 + j * 0.19, 0.12, (-0.3, 0.3)[j % 2])
+    elif kind == "rustle":
+        x = noise(0.8); tt = np.arange(len(x)) / SR
+        add((x - lowpass(x, 0.2)) * (0.5 + 0.5 * np.abs(np.sin(tt * 23))) * np.sin(np.pi * tt / 0.8) * 0.4, t0, 0.35)
+    elif kind == "heartbeat":
+        for j in range(3):
+            for off, g in ((0, 1.0), (0.22, 0.7)):
+                tt = np.arange(int(0.18 * SR)) / SR
+                add((np.sin(2 * np.pi * 55 * tt) * np.exp(-tt * 22)).astype(np.float32), t0 + j * 0.9 + off, 0.9 * g)
+    elif kind == "knock":
+        for j in range(3):
+            tt = np.arange(int(0.12 * SR)) / SR
+            add((lowpass(noise(0.12), 0.08) * np.exp(-tt * 45) * 3 + np.sin(2 * np.pi * 110 * tt) * np.exp(-tt * 35)).astype(np.float32), t0 + j * 0.17, 0.6)
+    elif kind == "cheer":
+        x = lowpass(noise(2.6), 0.25); tt = np.arange(len(x)) / SR
+        env = np.minimum(1, tt / 0.15) * np.exp(-tt * 0.7) * (1 + 0.3 * np.sin(tt * 19))
+        add((x * env / (np.abs(x).max() + 1e-9)).astype(np.float32), t0, 0.35)
+        for j in range(5): sfx("pop", t0 + 0.2 + j * 0.31)
+    elif kind == "bounce":
+        for j, g in enumerate((1.0, 0.8, 0.6)):
+            tt = np.arange(int(0.12 * SR)) / SR
+            add((np.sin(2 * np.pi * (140 - tt * 300) * tt) * np.exp(-tt * 40) + lowpass(noise(0.12), 0.1) * np.exp(-tt * 60)).astype(np.float32), t0 + j * 0.42, 0.7 * g)
+    elif kind == "swish":
+        x = noise(0.45); tt = np.arange(len(x)) / SR
+        add(((x - lowpass(x, 0.3)) * np.sin(np.pi * tt / 0.45) ** 2).astype(np.float32), t0, 0.35)
+    elif kind == "buzzer":
+        tt = np.arange(int(1.1 * SR)) / SR
+        add((np.sign(np.sin(2 * np.pi * 220 * tt)) * 0.5 + np.sign(np.sin(2 * np.pi * 223 * tt)) * 0.5).astype(np.float32) * np.minimum(1, (1.1 - tt) / 0.05), t0, 0.12)
+    elif kind == "whistle":
+        tt = np.arange(int(0.6 * SR)) / SR; f = 2900 + 120 * np.sign(np.sin(2 * np.pi * 28 * tt))
+        add((np.sin(2 * np.pi * np.cumsum(f) / SR) * np.minimum(1, tt / 0.02) * np.minimum(1, (0.6 - tt) / 0.05)).astype(np.float32), t0, 0.14)
+    elif kind == "crash":
+        x = noise(1.2); tt = np.arange(len(x)) / SR
+        add((lowpass(x, 0.25) * np.exp(-tt * 4) * 1.5 + np.sin(2 * np.pi * 60 * tt) * np.exp(-tt * 10)).astype(np.float32), t0, 0.7)
+        sfx("glass", t0 + 0.05)
+    elif kind == "glass":
+        r2 = np.random.default_rng(int(t0 * 100))
+        for j in range(9):
+            tt = np.arange(int(0.25 * SR)) / SR; f = r2.uniform(3000, 7000)
+            add((np.sin(2 * np.pi * f * tt) * np.exp(-tt * 25)).astype(np.float32), t0 + r2.uniform(0, 0.35), 0.08, r2.uniform(-0.6, 0.6))
+    elif kind == "horn":
+        tt = np.arange(int(0.9 * SR)) / SR
+        sig = sum(np.sign(np.sin(2 * np.pi * f * tt)) for f in (311, 392)) * np.minimum(1, tt / 0.02) * np.minimum(1, (0.9 - tt) / 0.05)
+        add(lowpass(sig.astype(np.float32), 0.2), t0, 0.18)
+    elif kind == "gameover":
+        for j, m in enumerate((60, 57, 53, 48)):
+            add(tone(m, 0.8, 2.5, 4), t0 + j * 0.22, 0.35)
+    elif kind == "ui":
+        for j, m in enumerate((84, 91)):
+            tt = np.arange(int(0.12 * SR)) / SR
+            add((np.sign(np.sin(2 * np.pi * hz(m) * tt)) * np.exp(-tt * 20)).astype(np.float32), t0 + j * 0.09, 0.06)
+    elif kind == "whoosh":
+        ln = 0.35; x = noise(ln); tt = np.arange(len(x)) / SR
+        y = np.empty_like(x); acc = 0.0
+        for i in range(len(x)):
+            a = 0.03 + 0.25 * np.sin(np.pi * tt[i] / ln); acc += a * (x[i] - acc); y[i] = acc
+        add((y * np.sin(np.pi * tt / ln) ** 2 / (np.abs(y).max() + 1e-9)).astype(np.float32), t0 - 0.12, 0.12)
+
+for i, ln in enumerate(lines):
+    d = ln["end"] - ln["start"]
+    for kind, frac in ln.get("sfx", []): sfx(kind, ln["start"] + frac * d)
+    if ln["start"] < sw: sfx("whoosh", ln["start"])
+
+# ---- rain ambience: light while personal clouds are on screen, heavy for the storm ----
+rain = lowpass(noise(dur), 0.35) * 0.5 + noise(dur) * 0.04
+gain = np.zeros(n, np.float32)
+for ln in lines:
+    if ln.get("rain"):
+        a, b = int((ln["start"] - 0.1) * SR), int(min(dur, ln["end"] + 0.4) * SR)
+        gain[a:b] = np.maximum(gain[a:b], 1.0 if ln["start"] >= sw else 0.35)
+kern = np.ones(int(0.25 * SR)) / int(0.25 * SR); gain = np.convolve(gain, kern, mode="same").astype(np.float32)
+rain *= gain / (np.abs(rain).max() + 1e-9) * 0.55
+L += rain; R += np.roll(rain, 400)
+
+def write(path, l, r):
+    st = np.stack([l, r], 1); st = np.clip(st, -1, 1)
+    with wave.open(path, "wb") as w:
+        w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((st * 32767).astype(np.int16).tobytes())
+if (T.get("music") or {}).get("none"):
+    music = (music[0] * 0, music[1] * 0)
+write("build/music.wav", *music)
+write("build/sfx.wav", L, R)
+print("music + sfx written", round(dur, 1), "s")
