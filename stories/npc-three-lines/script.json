@@ -1,0 +1,29 @@
+{
+ "title": "In this world, every NPC can only say three things",
+ "series": "NPC Nico (In This World) - episode 3",
+ "tts": {"engine": "kokoro", "voice": "am_liam", "speed": 1.1, "pitch": 0, "note": "matches the user's MP3 voice (ElevenLabs Liam); swap to elevenlabs Liam TX3LPaxmHKxFdv7VOQHJ when credits allow"},
+ "gap": 0.14,
+ "musicSwitchLine": 5,
+ "lines": [
+  { "text": "In this world, every NPC can only say *three* things.", "shots": ["npc_lines_a", "npc_lines_b"], "sfx": [["pop", 0.3], ["pop", 0.6], ["pop", 0.85]] },
+  { "text": "The cop says, Freeze! Stop right there! And, Nice weather.", "shots": ["cop_lines"], "sfx": [["pop", 0.25], ["pop", 0.5], ["laugh", 0.85]] },
+  { "text": "My mom says, Dinner's ready. Love you. And, Did you see that?", "shots": ["mom_lines"], "sfx": [["pop", 0.3], ["pop", 0.55], ["pop", 0.8]] },
+  { "text": "My three lines are, Hey! Nice car! And, Watch it!", "shots": ["nico_lines"], "sfx": [["pop", 0.4], ["pop", 0.6], ["pop", 0.85]] },
+  { "text": "I've said them *eight million* times.", "shots": ["counter"] },
+  { "text": "Then one day, I saw something the player didn't.", "shots": ["nico_sees"], "pause": 0.3 },
+  { "text": "The bridge on Palm Avenue was *cracked*. And the player was racing straight toward it.", "shots": ["bridge_crack", "player_racing"], "sfx": [["rustle", 0.2], ["whoosh", 0.75]] },
+  { "text": "I had to warn him. But I only had *three* lines.", "shots": ["nico_panic"], "sfx": [["heartbeat", 0.4]] },
+  { "text": "So I ran into the road and yelled, *Hey*!", "shots": ["yell_hey"], "sfx": [["whoosh", 0.3]] },
+  { "text": "He honked and drove around me.", "shots": ["honk_around"], "sfx": [["whoosh", 0.4]] },
+  { "text": "I chased him. *Nice car*!", "shots": ["chase"] },
+  { "text": "He gave me a thumbs up, and kept going.", "shots": ["thumbs"], "sfx": [["pop", 0.3]] },
+  { "text": "One line left. I jumped right in front of his car.", "shots": ["jump_front"], "sfx": [["whoosh", 0.6]] },
+  { "text": "*Watch it*!", "shots": ["watch_it"], "pause": 0.2 },
+  { "text": "He slammed the brakes. Two inches from my face.", "shots": ["brakes"], "sfx": [["thunder", 0.1]], "pause": 0.3 },
+  { "text": "And right in front of us, the bridge *collapsed*.", "shots": ["collapse"], "sfx": [["thunder", 0.45], ["crowd", 0.8]], "pause": 0.4 },
+  { "text": "He got out. He looked at the bridge. Then at me.", "shots": ["player_looks", "player_turns"] },
+  { "text": "And he said something no player has ever said to an NPC.", "shots": ["tension"], "pause": 0.5 },
+  { "text": "Thank you.", "shots": ["thank_you"], "sfx": [["sparkle", 0.4]], "pause": 0.5 },
+  { "text": "In this world, NPCs only get three lines. But that day, I didn't need a *fourth*.", "shots": ["end_two", "end_pull"] }
+ ]
+}
