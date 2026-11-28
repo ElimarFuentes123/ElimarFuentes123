@@ -256,6 +256,7 @@ const LIGHT = {
   day: { top: '#3f8fe6', mid: '#bfe3ff', bot: '#e3f2fd', sun: '#fff4e0', sunI: 3.2, off: [18, 30, 14], hemi: '#dbeaff', hemiG: '#8a7a5a', hemiI: 1.45, fog: '#cfe6fb', fogN: 70, fogF: 260, glass: 0.25, exp: 1.12, stars: 0, clouds: 1 },
   golden: { top: '#6e9fd6', mid: '#f6c59a', bot: '#f3d6b4', sun: '#ffd6a8', sunI: 3.0, off: [28, 20, -30], hemi: '#cfe0ff', hemiG: '#7a6a50', hemiI: 1.2, fog: '#f1d3b0', fogN: 50, fogF: 200, glass: 0.6, exp: 1.05, stars: 0, clouds: 1 },
   night: { top: '#0d1a44', mid: '#2a3d78', bot: '#1c2850', sun: '#a9bcff', sunI: 1.6, off: [14, 30, 22], hemi: '#7084c8', hemiG: '#2a2a3a', hemiI: 1.3, fog: '#1c2850', fogN: 40, fogF: 160, glass: 1.6, exp: 1.45, stars: 1, clouds: 0 },
+  rainy: { top: '#7f8ea3', mid: '#b3bdc9', bot: '#c6ced8', sun: '#e6ebf2', sunI: 1.3, off: [18, 30, 14], hemi: '#c8d2de', hemiG: '#6a6a6a', hemiI: 1.35, fog: '#b3bdc9', fogN: 30, fogF: 140, glass: 0.5, exp: 1.05, stars: 0, clouds: 0 },
   storm: { top: '#111a33', mid: '#26324f', bot: '#1a2238', sun: '#b4c4f0', sunI: 1.5, off: [14, 26, 24], hemi: '#7a8cc0', hemiG: '#2a2a33', hemiI: 1.2, fog: '#1a2238', fogN: 34, fogF: 130, glass: 1.6, exp: 1.35, stars: 0.25, clouds: 0 },
 };
 export const sets = {};
