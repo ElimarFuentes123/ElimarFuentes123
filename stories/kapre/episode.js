@@ -414,6 +414,7 @@ function endCard(ctx, time) {
 }
 const grain = canvasTex(256, 256, (g) => { const d = g.createImageData(256, 256); const r = rng(3); for (let i = 0; i < d.data.length; i += 4) { const v = r() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; } g.putImageData(d, 0, 0); }).image;
 function overlay(ctx, time, s) {
+  if (location.search.includes('clean')) return; // clean frames for covers/thumbnails
   // film grain + extra top/bottom shade so captions read
   ctx.save(); ctx.globalAlpha = 0.07; ctx.globalCompositeOperation = 'overlay'; const ox = (Math.floor(time * 24) * 97) % 256, oy = (Math.floor(time * 24) * 61) % 256;
   for (let x = -ox; x < W; x += 256) for (let y = -oy; y < H; y += 256) ctx.drawImage(grain, x, y); ctx.restore();

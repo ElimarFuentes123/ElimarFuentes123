@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Alas Tres brand</title>
+<style>
+  @font-face { font-family: Osw; src: url(/node_modules/@fontsource/oswald/files/oswald-latin-700-normal.woff2); font-weight: 700; }
+  @font-face { font-family: Osw; src: url(/node_modules/@fontsource/oswald/files/oswald-latin-600-normal.woff2); font-weight: 600; }
+  html, body { margin: 0; background: #000; }
+</style>
+</head>
+<body>
+<script>
+// ALAS TRES brand art: night barrio, balete silhouette, kapre-style glowing eyes, 3:00 AM.
+const RED = '#ff2b2b', YEL = '#ffd23a';
+function rng(seed) { return () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const mk = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return [c, c.getContext('2d')]; };
+const load = (src) => new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = src; });
+
+function sky(g, w, h) {
+  const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#05070f'); gr.addColorStop(0.55, '#16213f'); gr.addColorStop(1, '#0a0e1c');
+  g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  const r = rng(4); g.fillStyle = '#fff';
+  for (let i = 0; i < w * h / 9000; i++) { g.globalAlpha = 0.3 + r() * 0.6; g.fillRect(r() * w, r() * h * 0.6, 1.5 + r() * 1.5, 1.5 + r() * 1.5); }
+  g.globalAlpha = 1;
+}
+function moon(g, x, y, r) {
+  const gl = g.createRadialGradient(x, y, r * 0.8, x, y, r * 3.2); gl.addColorStop(0, 'rgba(190,210,255,0.35)'); gl.addColorStop(1, 'rgba(190,210,255,0)');
+  g.fillStyle = gl; g.beginPath(); g.arc(x, y, r * 3.2, 0, 7); g.fill();
+  g.fillStyle = '#eef1ff'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.fillStyle = 'rgba(160,170,200,0.35)'; [[-0.3, -0.2, 0.18], [0.25, 0.15, 0.14], [-0.05, 0.35, 0.1]].forEach(([a, b, s]) => { g.beginPath(); g.arc(x + a * r, y + b * r, s * r, 0, 7); g.fill(); });
+}
+// balete silhouette centered at x, ground y, scale s (trunk ~s wide)
+function balete(g, x, y, s, seed = 7) {
+  const r = rng(seed); g.fillStyle = '#04060c'; g.strokeStyle = '#04060c';
+  g.beginPath(); g.moveTo(x - s * 0.9, y); g.bezierCurveTo(x - s * 0.5, y - s * 0.6, x - s * 0.45, y - s * 2.2, x - s * 0.7, y - s * 3.2);
+  g.lineTo(x + s * 0.7, y - s * 3.2); g.bezierCurveTo(x + s * 0.45, y - s * 2.2, x + s * 0.5, y - s * 0.6, x + s * 0.9, y); g.fill();
+  for (let i = 0; i < 9; i++) { const a = (r() - 0.5) * 2.6; g.lineWidth = s * (0.05 + r() * 0.08); g.beginPath(); g.moveTo(x + a * s * 0.3, y - s * 2.8); g.quadraticCurveTo(x + a * s * 1.4, y - s * 3.4, x + a * s * 2.6, y - s * (3.1 + r() * 0.9)); g.stroke(); }
+  for (let i = 0; i < 46; i++) { const a = r() * Math.PI * 2, d = r(); g.beginPath(); g.ellipse(x + Math.cos(a) * d * s * 2.9, y - s * 4.1 + Math.sin(a) * d * s * 1.15, s * (0.5 + r() * 0.5), s * (0.35 + r() * 0.35), 0, 0, 7); g.fill(); }
+  g.lineWidth = Math.max(1, s * 0.018);
+  for (let i = 0; i < 60; i++) { const xx = x + (r() - 0.5) * s * 5, top = y - s * (2.9 + r() * 0.6), len = s * (0.6 + r() * 2.2); g.beginPath(); g.moveTo(xx, top); g.lineTo(xx + (r() - 0.5) * s * 0.1, top + len); g.stroke(); }
+  for (let i = 0; i < 7; i++) { const side = i % 2 ? 1 : -1, len = s * (0.6 + r() * 0.9); g.beginPath(); g.moveTo(x + side * s * 0.6, y); g.quadraticCurveTo(x + side * (s * 0.8 + len * 0.5), y - s * 0.25, x + side * (s * 0.7 + len), y + 2); g.lineTo(x + side * s * 0.5, y + 2); g.fill(); }
+}
+function eyes(g, x, y, s) {
+  for (const dx of [-1, 1]) {
+    const ex = x + dx * s, gl = g.createRadialGradient(ex, y, 0, ex, y, s * 2.6);
+    gl.addColorStop(0, 'rgba(255,170,60,0.9)'); gl.addColorStop(0.3, 'rgba(255,120,30,0.35)'); gl.addColorStop(1, 'rgba(255,90,20,0)');
+    g.fillStyle = gl; g.beginPath(); g.arc(ex, y, s * 2.6, 0, 7); g.fill();
+    g.fillStyle = '#ffe1a0'; g.beginPath(); g.ellipse(ex, y, s * 0.42, s * 0.3, 0, 0, 7); g.fill();
+  }
+}
+function ember(g, x, y, s) {
+  const gl = g.createRadialGradient(x, y, 0, x, y, s * 3); gl.addColorStop(0, 'rgba(255,110,30,1)'); gl.addColorStop(0.35, 'rgba(255,80,20,0.4)'); gl.addColorStop(1, 'rgba(255,60,10,0)');
+  g.fillStyle = gl; g.beginPath(); g.arc(x, y, s * 3, 0, 7); g.fill();
+  g.fillStyle = 'rgba(200,205,220,0.10)'; for (let i = 0; i < 14; i++) { g.beginPath(); g.ellipse(x + Math.sin(i * 1.3) * s * (0.5 + i * 0.25), y - i * s * 0.9, s * (0.8 + i * 0.22), s * (0.6 + i * 0.18), 0, 0, 7); g.fill(); }
+}
+function kubo(g, x, y, s, lit = true) {
+  g.fillStyle = '#04060c';
+  g.fillRect(x - s, y - s * 1.1, s * 2, s * 0.9); for (const dx of [-0.9, -0.3, 0.3, 0.9]) g.fillRect(x + dx * s - s * 0.04, y - s * 0.3, s * 0.08, s * 0.3);
+  g.beginPath(); g.moveTo(x - s * 1.35, y - s * 1.05); g.lineTo(x, y - s * 2.1); g.lineTo(x + s * 1.35, y - s * 1.05); g.fill();
+  if (lit) { g.fillStyle = '#ffb054'; g.fillRect(x + s * 0.25, y - s * 0.95, s * 0.45, s * 0.38); const gl = g.createRadialGradient(x + s * 0.47, y - s * 0.76, 0, x + s * 0.47, y - s * 0.76, s * 1.3); gl.addColorStop(0, 'rgba(255,160,70,0.35)'); gl.addColorStop(1, 'rgba(255,160,70,0)'); g.fillStyle = gl; g.beginPath(); g.arc(x + s * 0.47, y - s * 0.76, s * 1.3, 0, 7); g.fill(); }
+}
+function palm(g, x, y, s) {
+  g.strokeStyle = '#04060c'; g.lineWidth = s * 0.08; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + s * 0.3, y - s * 1.6, x + s * 0.15, y - s * 3); g.stroke();
+  g.fillStyle = '#04060c'; for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; g.save(); g.translate(x + s * 0.15, y - s * 3); g.rotate(a); g.beginPath(); g.ellipse(s * 0.7, s * 0.15, s * 0.75, s * 0.12, 0.35, 0, 7); g.fill(); g.restore(); }
+}
+function fog(g, w, h, y, amount = 0.35) {
+  const gr = g.createLinearGradient(0, y - h * 0.15, 0, y + h * 0.05); gr.addColorStop(0, 'rgba(120,135,180,0)'); gr.addColorStop(1, `rgba(120,135,180,${amount})`);
+  g.fillStyle = gr; g.fillRect(0, y - h * 0.15, w, h * 0.2);
+}
+function flies(g, w, h, n, seed = 3) { const r = rng(seed); for (let i = 0; i < n; i++) { const x = r() * w, y = h * (0.45 + r() * 0.5), s = 2 + r() * 4; const gl = g.createRadialGradient(x, y, 0, x, y, s * 3); gl.addColorStop(0, 'rgba(220,255,140,0.9)'); gl.addColorStop(1, 'rgba(220,255,140,0)'); g.fillStyle = gl; g.beginPath(); g.arc(x, y, s * 3, 0, 7); g.fill(); } }
+function title(g, x, y, size, align = 'center') {
+  g.textAlign = align; g.textBaseline = 'alphabetic'; g.font = `700 ${size}px Osw`; g.lineJoin = 'round';
+  g.shadowColor = 'rgba(0,0,0,0.8)'; g.shadowBlur = size * 0.25; g.fillStyle = '#ffffff'; g.fillText('ALAS', x - (align === 'center' ? g.measureText(' TRES').width / 2 : 0), y);
+  const wA = g.measureText('ALAS ').width; g.fillStyle = RED; g.fillText('TRES', x + (align === 'center' ? g.measureText('ALAS').width / 2 + size * 0.06 : wA), y); g.shadowBlur = 0;
+}
+function pill(g, x, y, text, size, bg = RED) {
+  g.font = `700 ${size}px Osw`; g.textAlign = 'left'; const w = g.measureText(text).width + size * 1.0;
+  g.fillStyle = bg; g.beginPath(); g.roundRect(x - w / 2, y, w, size * 1.5, size * 0.25); g.fill();
+  g.fillStyle = '#fff'; g.textBaseline = 'middle'; g.fillText(text, x - w / 2 + size * 0.5, y + size * 0.78);
+}
+
+window.renderProfile = () => {
+  const [c, g] = mk(1080, 1080); sky(g, 1080, 1080); moon(g, 760, 260, 95);
+  g.fillStyle = '#060912'; g.fillRect(0, 900, 1080, 180);
+  balete(g, 540, 930, 150);
+  eyes(g, 540, 560, 42); ember(g, 600, 650, 14);
+  fog(g, 1080, 1080, 930, 0.45); flies(g, 1080, 1080, 16, 9);
+  // clock stamp — reads as "3 AM" even in a tiny circle
+  g.font = '700 140px Osw'; g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 30;
+  g.fillStyle = '#fff'; g.fillText('3:00', 540, 955); g.shadowBlur = 0;
+  return c.toDataURL('image/png');
+};
+window.renderBanner = (frameSrc) => load(frameSrc).then((img) => {
+  const W = 2560, H = 1440, [c, g] = mk(W, H); sky(g, W, H); moon(g, 640, 430, 70);
+  g.fillStyle = '#060912'; g.fillRect(0, 1060, W, 380);
+  for (const [x, s, lit] of [[260, 70, true], [620, 55, false], [2250, 75, true], [1880, 50, true]]) kubo(g, x, 1065, s, lit);
+  palm(g, 420, 1065, 130); palm(g, 2420, 1065, 120); palm(g, 760, 1065, 100);
+  balete(g, 2080, 1070, 95, 11); eyes(g, 2080, 800, 22); ember(g, 2115, 850, 9);
+  fog(g, W, H, 1070, 0.5); flies(g, W, H, 40, 5);
+  // safe area 1546x423 centered: x 507..2053, y 508..931
+  g.fillStyle = 'rgba(0,0,0,0.35)'; const grd = g.createLinearGradient(0, 500, 0, 940); grd.addColorStop(0, 'rgba(0,0,0,0)'); grd.addColorStop(0.5, 'rgba(0,0,0,0.45)'); grd.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = grd; g.fillRect(0, 500, W, 440);
+  pill(g, 1280, 540, 'FILIPINO FOLKLORE · HORROR STORIES', 34);
+  title(g, 1280, 790, 210);
+  g.font = '600 46px Osw'; g.textAlign = 'center'; g.fillStyle = '#c9d0e6'; g.fillText('Mga kwento ng lola, alas tres ng madaling araw.  New story every week.', 1280, 880);
+  return c.toDataURL('image/png');
+});
+window.renderCover = (frameSrc) => load(frameSrc).then((img) => {
+  const [c, g] = mk(1080, 1920); g.drawImage(img, 0, 0, 1080, 1920);
+  const gr = g.createLinearGradient(0, 0, 0, 760); gr.addColorStop(0, 'rgba(0,0,0,0.85)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 1080, 760);
+  pill(g, 540, 150, 'ALAS TRES · EPISODE 1 · PART 1 OF 2', 34);
+  g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.lineJoin = 'round'; g.font = '700 150px Osw';
+  g.lineWidth = 16; g.strokeStyle = 'rgba(0,0,0,0.9)'; g.strokeText('KAPRE', 540, 400); g.fillStyle = RED; g.fillText('KAPRE', 540, 400);
+  g.font = '700 70px Osw'; for (const [t, y, col] of [['IF YOU SMELL SMOKE', 500, '#fff'], ["DON'T LOOK UP", 585, YEL]]) { g.lineWidth = 10; g.strokeText(t, 540, y); g.fillStyle = col; g.fillText(t, 540, y); }
+  return c.toDataURL('image/png');
+});
+document.fonts.load('700 80px Osw').then(() => document.fonts.load('600 40px Osw')).then(() => { window.ready = true; });
+</script>
+</body>
+</html>
